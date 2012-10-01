@@ -23,7 +23,10 @@
         <developerConnection>scm:git:ssh://git@github.com/1and1/bill-of-materials-maven-plugin.git</developerConnection>
         <url>https://github.com/1and1/bill-of-materials-maven-plugin/</url>
     </scm>
-
+    <ciManagement>
+        <system>Jenkins</system>
+        <url>http://huschteguzzel.de/hudson/job/oneandone-bill-of-materials-maven-plugin/</url>
+    </ciManagement>
     <dependencies>
         <dependency>
             <groupId>org.apache.maven</groupId>
