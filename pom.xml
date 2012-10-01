@@ -75,7 +75,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-plugin-plugin</artifactId>
-                <version>2.5.1</version>
+                <version>${maven-plugin-plugin.version}</version>
                 <configuration>
                     <goalPrefix>bill-of-materials</goalPrefix>
                     <skipErrorNoDescriptorsFound>true</skipErrorNoDescriptorsFound>
