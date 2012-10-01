@@ -12,7 +12,7 @@
     <packaging>maven-plugin</packaging>
 
     <name>bill-of-materials Maven Plugin</name>
-    <description>Plugin to create and read a bill of materials, i.e. the SHA1 sum of all artifacts and their names</description>
+    <description>Plugin to create and read a bill of materials, i.e. the SHA1 sum of all artifacts and their names.</description>
     <url>https://github.com/1and1/bill-of-materials-maven-plugin/</url>
 
     <properties>
@@ -27,6 +27,20 @@
         <system>Jenkins</system>
         <url>http://huschteguzzel.de/hudson/job/oneandone-bill-of-materials-maven-plugin/</url>
     </ciManagement>
+    <developers>
+        <developer>
+            <id>mifr</id>
+            <name>Mirko Friedenhagen</name>
+            <organization>1 &amp; 1 Internet AG</organization>
+            <organizationUrl>${project.url}</organizationUrl>
+            <url>http://github.com/mfriedenhagen/</url>
+            <timezone>+1</timezone>
+            <roles>
+                <role>developer</role>
+                <role>project lead</role>
+            </roles>
+        </developer>
+    </developers>
     <dependencies>
         <dependency>
             <groupId>org.apache.maven</groupId>
