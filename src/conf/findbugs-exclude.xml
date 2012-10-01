@@ -1,0 +1,21 @@
+<FindBugsFilter>
+    <Match><!-- generated -->
+        <Class name="net.oneandone.maven.plugins.billofmaterials.HelpMojo" />
+    </Match>
+    <Match><!-- generated -->
+        <Class name="HelpMojo" />
+    </Match>
+    <Match><!-- should fail on null values! -->
+        <Class name="net.oneandone.maven.plugins.billofmaterials.CreateBillOfMaterialsMojo$ToFile" />
+        <Bug pattern="NP_PARAMETER_MUST_BE_NONNULL_BUT_MARKED_AS_NULLABLE" />
+    </Match>
+    <Match><!-- should fail on null values! -->
+        <Class name="net.oneandone.maven.plugins.billofmaterials.CreateBillOfMaterialsMojo$ToBomString" />
+        <Bug pattern="NP_PARAMETER_MUST_BE_NONNULL_BUT_MARKED_AS_NULLABLE" />
+    </Match>
+    <Match><!-- sha1sum wants Unix line seperator. -->
+        <Class name="net.oneandone.maven.plugins.billofmaterials.CreateBillOfMaterialsMojo" />
+        <Method name="writeResults" />
+        <Bug pattern="VA_FORMAT_STRING_USES_NEWLINE" />
+    </Match>
+</FindBugsFilter>

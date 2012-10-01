@@ -17,6 +17,8 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven-checkstyle-plugin.suppressionsLocation>file:src/conf/checkstyle-suppressions.xml</maven-checkstyle-plugin.suppressionsLocation>
+        <findbugs-maven-plugin.excludeFilterFile>src/conf/findbugs-exclude.xml</findbugs-maven-plugin.excludeFilterFile>
     </properties>
     <scm>
         <connection>scm:git:git://github.com/1and1/bill-of-materials-maven-plugin.git</connection>
@@ -119,6 +121,19 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>cobertura-maven-plugin</artifactId>
+                <configuration>
+                    <instrumentation>
+                        <excludes>
+                            <exclude>net/oneandone/maven/plugins/billofmaterials/*Mojo.class</exclude>
+                            <exclude>net/oneandone/maven/plugins/billofmaterials/*Mojo$*.class</exclude>
+                            <exclude>HelpMojo.class</exclude>
+                        </excludes>
+                    </instrumentation>
+                </configuration>
             </plugin>
         </plugins>
     </build>
