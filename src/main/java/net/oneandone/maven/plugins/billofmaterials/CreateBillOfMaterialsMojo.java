@@ -137,6 +137,12 @@ public class CreateBillOfMaterialsMojo extends AbstractBillOfMaterialsMojo {
         write(hashBaseNamesAsString);
     }
 
+    /**
+     * Writes content to the bomFile creating intermediate directories.
+     *
+     * @param content to write
+     * @throws IOException when the target directory could not be created or the content could not be written.
+     */
     void write(final String content) throws IOException {
         final File bomFile = calculateBillOfMaterialsFile();
         final File parentFile = bomFile.getParentFile();
@@ -149,7 +155,7 @@ public class CreateBillOfMaterialsMojo extends AbstractBillOfMaterialsMojo {
     /**
      * Returns a string representation for the comment.
      * 
-     * @param userName
+     * @param userName current user
      * @return string representation for the comment.
      */
     String projectCommentToString(final String userName) {
