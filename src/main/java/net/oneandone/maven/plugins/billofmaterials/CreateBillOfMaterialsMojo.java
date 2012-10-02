@@ -95,11 +95,12 @@ public class CreateBillOfMaterialsMojo extends AbstractBillOfMaterialsMojo {
      * @return a list of all artifacts for the build including the attached ones.
      */
     List<Artifact> getListOfArtifacts() {
-        final List<Artifact> artifacts = getProject().getAttachedArtifacts();
-        final String packaging = getProject().getPackaging();
+        final MavenProject project = getProject();
+        final List<Artifact> artifacts = project.getAttachedArtifacts();
+        final String packaging = project.getPackaging();
         // POMs return null as their artifact, which will crash the transformation lateron.
         if (!"pom".equals(packaging)) {
-            artifacts.add(getProject().getArtifact());
+            artifacts.add(project.getArtifact());
         }
         return artifacts;
     }
@@ -109,7 +110,7 @@ public class CreateBillOfMaterialsMojo extends AbstractBillOfMaterialsMojo {
      * @param hashBaseNames to add the entry to.
      * @throws IOException when the POM could not be read.
      */
-    void addHashEntryForPom(final ArrayList<String> hashBaseNames) throws IOException {
+    void addHashEntryForPom(final List<String> hashBaseNames) throws IOException {
         final MavenProject project = getProject();
         final HashCode sha1OfPom = Files.hash(project.getFile(), sha1);
         final String pomLine = String.format(Locale.ENGLISH, "%s  %s-%s.pom",
@@ -123,21 +124,36 @@ public class CreateBillOfMaterialsMojo extends AbstractBillOfMaterialsMojo {
      * @param hashBaseNames to write
      * @throws IOException when the parent directory could not be created or something went wrong while writing the result.
      */
-    void writeResults(final ArrayList<String> hashBaseNames) throws IOException {
+    void writeResults(final List<String> hashBaseNames) throws IOException {
         final String hashBaseNamesAsString = Joiner.on("\n").join(hashBaseNames) + "\n";
+        final MavenProject project = getProject();
+        final String userName = System.getProperty("user.name");
+        write(projectCommentToString(userName));        
+        write(hashBaseNamesAsString);
+    }
+
+    void write(final String content) throws IOException {
         final File bomFile = calculateBillOfMaterialsFile();
         final File parentFile = bomFile.getParentFile();
         if (!parentFile.exists() && !parentFile.mkdirs()) {
             throw new IOException("Could not create parent directory for " + bomFile);
         }
+        Files.append(content, bomFile, Charsets.UTF_8);
+    }
+    
+    /**
+     * Returns a string representation for the comment.
+     * 
+     * @param project
+     * @param userName
+     * @return 
+     */
+    String projectCommentToString(final String userName) {
         final MavenProject project = getProject();
-        final String userName = System.getProperty("user.name");
-        Files.append(String.format(
-                Locale.ENGLISH,
-                "# %s:%s:%s user=%s\n",
-                project.getGroupId(), project.getArtifactId(), project.getVersion(), userName),
-                bomFile, Charsets.UTF_8);
-        Files.append(hashBaseNamesAsString, bomFile, Charsets.UTF_8);
+        return String.format(
+          Locale.ENGLISH,
+          "# %s:%s:%s user=%s\n",
+          project.getGroupId(), project.getArtifactId(), project.getVersion(), userName);
     }
 
     /**
@@ -164,7 +180,7 @@ public class CreateBillOfMaterialsMojo extends AbstractBillOfMaterialsMojo {
         /**
          * @param hashFunction to use.
          */
-        private ToBomString(HashFunction hashFunction) {
+        ToBomString(HashFunction hashFunction) {
             this.hashFunction = hashFunction;
         }
 
