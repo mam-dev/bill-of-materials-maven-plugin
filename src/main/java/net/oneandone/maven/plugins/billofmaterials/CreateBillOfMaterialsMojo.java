@@ -71,6 +71,13 @@ public class CreateBillOfMaterialsMojo extends AbstractBillOfMaterialsMojo {
     private final HashFunction sha1 = Hashing.sha1();
 
     /**
+     * Default constructor for maven.
+     */
+    CreateBillOfMaterialsMojo() {
+        super();
+    }
+    
+    /**
      * Just for tests.
      * @param billOfMaterialsPath relative path to bom.
      * @param project current project

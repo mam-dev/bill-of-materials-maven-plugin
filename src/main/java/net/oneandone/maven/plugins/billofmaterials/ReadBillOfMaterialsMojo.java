@@ -54,7 +54,14 @@ public class ReadBillOfMaterialsMojo extends AbstractBillOfMaterialsMojo {
      * Logger.
      */
     private static final Logger LOG = LoggerFactory.getLogger(ReadBillOfMaterialsMojo.class);
-
+    
+    /**
+     * Default constructor for maven.
+     */
+    ReadBillOfMaterialsMojo() {
+        super();
+    }
+    
     /**
      * Just for tests.
      * @param billOfMaterialsPath relative path to bom.

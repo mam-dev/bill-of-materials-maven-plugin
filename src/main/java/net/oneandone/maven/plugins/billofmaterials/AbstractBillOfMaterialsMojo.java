@@ -52,6 +52,13 @@ public abstract class AbstractBillOfMaterialsMojo extends AbstractMojo {
     private File sessionExectionRootDirectory;
 
     /**
+     * Default constructor for maven.
+     */
+    AbstractBillOfMaterialsMojo() {
+        super();
+    }
+    
+    /**
      * Just for tests.
      * @param billOfMaterialsPath relative path to bom.
      * @param project current project
