@@ -1,0 +1,70 @@
+#macro ( roles $roles ) 
+#if ( $roles.size() > 0 )
+#set ( $roleSize = $roles.size() - 1 )
+&nbsp;<i>(#foreach ( $role in $roles.subList(0, $roleSize ) )$role, #end$roles.get($roleSize))</i>
+#end
+#end
+
+#macro ( singledevelopersOrContributors $devcon )
+    #if ( $devcon.url )
+        <a href="$devcon.url">$devcon.name#roles( $devcon.roles )</a>
+    #else
+        $devcon.name#roles( $decon.roles )
+    #end
+#end
+
+#macro ( developersOrContributors $title $devcons )
+#if ( $devcons.size() > 0 )
+#set ( $devconSize = $devcons.size() - 1 )
+<dt><b>$title:</b></dt>
+<dd>#foreach ( $devcon in $devcons.subList(0, $devconSize ) )
+#singledevelopersOrContributors( $devcon ), #end
+#singledevelopersOrContributors( $devcons.get($devconSize) )
+</dd>
+#end
+#end
+
+<h2 id="gav">$project.groupId:$project.artifactId:$project.version</h2>
+<dl>
+<dt><b>Description:</b></dt>
+<dd id="project.description">$project.description</dd>
+<dt><b>Links:</b></dt>
+<dd>
+<a href="$project.url" id="project.url">Project URL</a>&nbsp;-&nbsp;
+<a href="$project.scm.url" id="project.scm.url">SCM</a>&nbsp;-&nbsp;
+<a href="$project.issueManagement.url" id="project.issueManagement.url">Issues</a>
+<a href="$project.properties.ypSoftware.permLink" id="ypSoftware.permLink">YP</a>
+<dd>
+#developersOrContributors( "Developers" $project.developers )
+#developersOrContributors( "Contributors" $project.contributors )
+</dl>
+$project.properties.ypSoftware.description
+#foreach ( $uri in $project.properties.ypSoftware.uris.documentation )
+$uri
+#end
+<h2>YP Responsibles</h2>
+<ul>
+#foreach ( $responsible in $project.properties.ypResponsibles )
+<li><a href="$responsible.uri">$responsible.firstName $responsible.name ($responsible.responsibleType.description)</a></li>
+#end
+</ul>
+<h2>Jenkins Data</h2>
+<h3>Health Report</h3>
+<table border="1">
+    <tr><th>Description</th><th>Score</th>
+#foreach ( $healthReport in $project.properties.ypJenkinsModel.healthReports )
+    <tr>
+        <td>$healthReport.description</td>
+        <td>$healthReport.score</td>
+    </tr>
+#end
+</table>
+<h3>Build-Links</h3>
+<ul>
+<li><a href="$project.properties.ypJenkinsModel.lastStableBuild.url">Last Stable Build</a></li>
+<li><a href="$project.properties.ypJenkinsModel.lastBuild.url">Last Build</a></li>
+</ul>
+<h3>Bill of Materials</h3>
+<pre id="bill-of-materials">
+$project.properties.qaBillOfMaterials
+</pre>
