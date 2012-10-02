@@ -51,6 +51,14 @@ public abstract class AbstractBillOfMaterialsMojo extends AbstractMojo {
     @Parameter(defaultValue = "${session.executionRootDirectory}", readonly = true)
     private File sessionExectionRootDirectory;
 
+    /** Just for tests. **/
+    AbstractBillOfMaterialsMojo(String billOfMaterialsPath, MavenProject project, File sessionExectionRootDirectory) {
+        this.billOfMaterialsPath = billOfMaterialsPath;
+        this.project = project;
+        this.sessionExectionRootDirectory = sessionExectionRootDirectory;
+    }
+
+    
     /**
      * Returns the {@link File} pointing to the bill of materials.
      *

@@ -96,6 +96,11 @@
             <artifactId>jcabi-maven-slf4j</artifactId>
             <version>0.1.9</version>
         </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

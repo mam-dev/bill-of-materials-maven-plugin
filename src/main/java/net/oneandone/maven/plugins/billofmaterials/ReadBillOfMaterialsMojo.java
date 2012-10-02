@@ -23,6 +23,7 @@ import java.util.Locale;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.project.MavenProject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.impl.StaticLoggerBinder;
@@ -54,6 +55,11 @@ public class ReadBillOfMaterialsMojo extends AbstractBillOfMaterialsMojo {
      */
     private static final Logger LOG = LoggerFactory.getLogger(ReadBillOfMaterialsMojo.class);
 
+    /** Just for tests. **/
+    ReadBillOfMaterialsMojo(String billOfMaterialsPath, MavenProject project, File sessionExectionRootDirectory) {
+        super(billOfMaterialsPath, project, sessionExectionRootDirectory);
+    }
+    
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         StaticLoggerBinder.getSingleton().setMavenLog(this.getLog());

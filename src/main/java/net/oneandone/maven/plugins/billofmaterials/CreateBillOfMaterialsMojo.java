@@ -70,6 +70,11 @@ public class CreateBillOfMaterialsMojo extends AbstractBillOfMaterialsMojo {
      */
     private final HashFunction sha1 = Hashing.sha1();
 
+    /** Just for tests. **/
+    CreateBillOfMaterialsMojo(String billOfMaterialsPath, MavenProject project, File sessionExectionRootDirectory) {
+        super(billOfMaterialsPath, project, sessionExectionRootDirectory);
+    }
+    
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         StaticLoggerBinder.getSingleton().setMavenLog(this.getLog());
