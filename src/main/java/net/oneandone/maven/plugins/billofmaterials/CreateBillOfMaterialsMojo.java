@@ -70,7 +70,12 @@ public class CreateBillOfMaterialsMojo extends AbstractBillOfMaterialsMojo {
      */
     private final HashFunction sha1 = Hashing.sha1();
 
-    /** Just for tests. **/
+    /**
+     * Just for tests.
+     * @param billOfMaterialsPath relative path to bom.
+     * @param project current project
+     * @param sessionExectionRootDirectory root directory.
+     */
     CreateBillOfMaterialsMojo(String billOfMaterialsPath, MavenProject project, File sessionExectionRootDirectory) {
         super(billOfMaterialsPath, project, sessionExectionRootDirectory);
     }
@@ -144,16 +149,15 @@ public class CreateBillOfMaterialsMojo extends AbstractBillOfMaterialsMojo {
     /**
      * Returns a string representation for the comment.
      * 
-     * @param project
      * @param userName
-     * @return 
+     * @return string representation for the comment.
      */
     String projectCommentToString(final String userName) {
         final MavenProject project = getProject();
         return String.format(
-          Locale.ENGLISH,
-          "# %s:%s:%s user=%s\n",
-          project.getGroupId(), project.getArtifactId(), project.getVersion(), userName);
+                Locale.ENGLISH,
+                "# %s:%s:%s user=%s\n",
+                project.getGroupId(), project.getArtifactId(), project.getVersion(), userName);
     }
 
     /**

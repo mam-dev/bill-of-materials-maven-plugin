@@ -55,7 +55,12 @@ public class ReadBillOfMaterialsMojo extends AbstractBillOfMaterialsMojo {
      */
     private static final Logger LOG = LoggerFactory.getLogger(ReadBillOfMaterialsMojo.class);
 
-    /** Just for tests. **/
+    /**
+     * Just for tests.
+     * @param billOfMaterialsPath relative path to bom.
+     * @param project current project
+     * @param sessionExectionRootDirectory root directory.
+     */
     ReadBillOfMaterialsMojo(String billOfMaterialsPath, MavenProject project, File sessionExectionRootDirectory) {
         super(billOfMaterialsPath, project, sessionExectionRootDirectory);
     }
