@@ -9,4 +9,9 @@ assert bomFile.exists();
 String bomFileContent = bomFile.getText("UTF-8");
 assert bomFileContent.readLines().size() == 10;
 
+File expandedTemplate = new File( basedir, "target/jenkins-description.html" );
+assert expandedTemplate.exists();
+String content = expandedTemplate.getText("UTF-8");
+assert content.contains('child1-1.0-SNAPSHOT-sources.jar')
+
 return true;

@@ -93,6 +93,24 @@
                             </execution>
                         </executions>
                     </plugin>
+                    <plugin>
+                        <groupId>net.rumati.maven.plugins</groupId>
+                        <artifactId>velocity-maven-plugin</artifactId>
+                        <version>0.2.0</version>
+                        <executions>
+                            <execution>
+                                <id>company-parent-pom-create-jenkins-description</id>
+                                <phase>process-resources</phase>
+                                <goals>
+                                    <goal>velocity</goal>
+                                </goals>
+                                <configuration>
+                                    <template>${user.dir}/src/conf/company/conf/jenkins-description.html.vm</template>
+                                    <outputFile>target/jenkins-description.html</outputFile>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
                 </plugins>
             </build>
         </profile>
