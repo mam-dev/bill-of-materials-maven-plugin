@@ -29,8 +29,10 @@ import org.slf4j.LoggerFactory;
 import org.slf4j.impl.StaticLoggerBinder;
 
 /**
- * Reads a bill of materials for all installed artifacts and puts it's content in a property of the project.
- * Spits out a warning when the file does not exist.
+ * Reads a bill of materials for all installed artifacts and puts it's content in a property 
+ * called <tt>qaBillOfMaterials</tt> of the project which may be reused by templating plugins.
+ * 
+ * Spits out a warning when the file does not exist. For usage see the integration tests.
  * 
  * <p>This in the standard format for the <tt>sha1sum</tt> command including meta information:</p>
  * <pre>

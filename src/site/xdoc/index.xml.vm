@@ -75,6 +75,11 @@ bf6f62ab2ce6c6b50298ce618d4f1d890df58357  company-parent-pom-1.0-SNAPSHOT.pom
                     <code>property</code> called 
                     <code>qaBillOfMaterials</code>.
                 </p>
+                <p>See 
+                    <a href="https://github.com/1and1/bill-of-materials-maven-plugin/tree/master/src/it/complete-run-including-output">integration tests</a>
+                    for more information how to use the property afterwards with e.g. the 
+                    <tt>velocity-maven-plugin</tt>.
+                </p>
                 <source><![CDATA[
     <build>
         <plugins>
