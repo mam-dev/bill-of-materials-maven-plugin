@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright 1&1 Internet AG, https://github.com/1and1/
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+<document xmlns="http://maven.apache.org/XDOC/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 xdoc-2.0.xsd">
+    <properties>
+        <title>Introduction</title>
+        <author>Mirko Friedenhagen</author>
+    </properties>
+    <body>
+        <section name="Introduction">
+            <p>
+                This plugin writes a bill of materials compatible with shasum to
+                a designated directory. The format looks like this:
+            </p>
+            <source><![CDATA[
+# company:company-parent-pom:1.0-SNAPSHOT user=mirko
+bf6f62ab2ce6c6b50298ce618d4f1d890df58357  company-parent-pom-1.0-SNAPSHOT.pom
+# company:child1:1.0-SNAPSHOT user=mirko
+587f6199c6adeb6e9cdbd84298a98b2b6c329b5d  child1-1.0-SNAPSHOT-sources.jar
+0987fda07a889d2a1a50a491754c96cd4b06b769  child1-1.0-SNAPSHOT.jar
+082fa2206c4a00e3f428e9100199a0337ad42fdb  child1-1.0-SNAPSHOT.pom
+# company:child2:1.0-SNAPSHOT user=mirko
+8abf906b7ccd2d319850f2d295a83dd79dc08871  child2-1.0-SNAPSHOT-sources.jar
+17108712a4ab1538c12a7ccf51330e190fde286a  child2-1.0-SNAPSHOT.jar
+5661e9270a02c5359be47615bb6ed9911105d878  child2-1.0-SNAPSHOT.pom
+            ]]></source>
+            <p>Lateron you may reuse this information by reading it back again.</p>
+            <p>As can be seen, the plugin works with multi-module projects as 
+            well, the different modules are seperated by a comment including
+            the maven coordinates and the name of the user doing the build.
+            </p>
+        </section>
+        <section name="Usage">
+            <subsection name="Writing the bill of materials.">
+                <p>Note that by default the plugin is invoked during the 
+                    <code>install</code> phase, as only then we have access to the 
+                    attached artifacts.                
+                </p>
+                <source><![CDATA[
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>${project.artifactId}</artifactId>
+                <version>${project.version}</version>
+                <executions>
+                    <execution>
+                        <id>create-bill-of-materials</id>
+                        <goals>
+                            <goal>create-bill-of-materials</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+       </plugin>
+   </build>
+]]></source>
+            </subsection>
+            <subsection name="Reading the bill of materials.">
+                <p>The information read from the file is placed in 
+                    <code>property</code> called 
+                    <code>qaBillOfMaterials</code>.
+                </p>
+                <source><![CDATA[
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>${project.artifactId}</artifactId>
+                <version>${project.version}</version>
+                <executions>
+                    <execution>
+                        <id>read-bill-of-materials</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>read-bill-of-materials</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+       </plugin>
+   </build>
+]]></source>
+            </subsection>
+        </section>
+    </body>
+</document>
