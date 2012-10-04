@@ -15,7 +15,7 @@
     </Match>
     <Match><!-- sha1sum wants Unix line seperator. -->
         <Class name="net.oneandone.maven.plugins.billofmaterials.CreateBillOfMaterialsMojo" />
-        <Method name="writeResults" />
+        <Method name="projectCommentToString" />
         <Bug pattern="VA_FORMAT_STRING_USES_NEWLINE" />
     </Match>
 </FindBugsFilter>

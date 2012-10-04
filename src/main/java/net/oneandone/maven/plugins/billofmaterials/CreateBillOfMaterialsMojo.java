@@ -138,7 +138,6 @@ public class CreateBillOfMaterialsMojo extends AbstractBillOfMaterialsMojo {
      */
     void writeResults(final List<String> hashBaseNames) throws IOException {
         final String hashBaseNamesAsString = Joiner.on("\n").join(hashBaseNames) + "\n";
-        final MavenProject project = getProject();
         final String userName = System.getProperty("user.name");
         write(projectCommentToString(userName));        
         write(hashBaseNamesAsString);
