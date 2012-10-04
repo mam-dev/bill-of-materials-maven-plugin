@@ -30,6 +30,10 @@
         <system>Jenkins</system>
         <url>http://huschteguzzel.de/hudson/job/oneandone-bill-of-materials-maven-plugin/</url>
     </ciManagement>
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/1and1/bill-of-materials-maven-plugin/issues</url>
+    </issueManagement>
     <developers>
         <developer>
             <id>mifr</id>
