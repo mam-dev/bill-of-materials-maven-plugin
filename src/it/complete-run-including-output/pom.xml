@@ -48,7 +48,7 @@
                     <execution>
                         <id>create-bill-of-materials</id>
                         <goals>
-                            <goal>create-bill-of-materials</goal>
+                            <goal>create</goal>
                         </goals>
                     </execution>
                 </executions>
@@ -88,7 +88,7 @@
                                 <id>read-bill-of-materials</id>
                                 <phase>process-resources</phase>
                                 <goals>
-                                    <goal>read-bill-of-materials</goal>
+                                    <goal>read</goal>
                                 </goals>
                             </execution>
                         </executions>

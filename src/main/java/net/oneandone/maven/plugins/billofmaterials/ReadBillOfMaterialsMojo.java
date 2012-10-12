@@ -50,7 +50,7 @@ import org.slf4j.impl.StaticLoggerBinder;
  *
  * @author Mirko Friedenhagen <mirko.friedenhagen@1und1.de>
  */
-@Mojo(name = "read-bill-of-materials")
+@Mojo(name = "read")
 public class ReadBillOfMaterialsMojo extends AbstractBillOfMaterialsMojo {
     /**
      * Logger.

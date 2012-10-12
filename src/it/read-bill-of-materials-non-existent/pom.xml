@@ -23,7 +23,7 @@
                         <id>read-bill-of-materials</id>
                         <phase>process-resources</phase>
                         <goals>
-                            <goal>read-bill-of-materials</goal>
+                            <goal>read</goal>
                         </goals>
                     </execution>
                 </executions>
