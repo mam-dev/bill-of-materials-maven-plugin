@@ -60,6 +60,7 @@ public class ReadBillOfMaterialsMojoTest {
     }
     
     @Test
+    @SuppressWarnings("ResultOfObjectAllocationIgnored")
     public void testDefaultConstructor() {
         new ReadBillOfMaterialsMojo();
     }

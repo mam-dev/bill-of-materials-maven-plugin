@@ -139,6 +139,7 @@ public class CreateBillOfMaterialsMojoTest {
     }
 
     @Test
+    @SuppressWarnings("ResultOfObjectAllocationIgnored")
     public void testDefaultConstructor() {
         new CreateBillOfMaterialsMojo();
     }
