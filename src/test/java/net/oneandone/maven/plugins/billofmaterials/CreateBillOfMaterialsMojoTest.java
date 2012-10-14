@@ -138,6 +138,11 @@ public class CreateBillOfMaterialsMojoTest {
         sut.apply(nonExistingFileForWhichWeWantToCalculateSha1);
     }
 
+    @Test
+    public void testDefaultConstructor() {
+        new CreateBillOfMaterialsMojo();
+    }
+    
     private MavenProject createMinimalProject() {
         final MavenProject projectMock = mock(MavenProject.class);
         when(projectMock.getGroupId()).thenReturn("g");
