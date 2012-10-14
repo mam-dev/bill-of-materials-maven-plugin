@@ -48,14 +48,15 @@ public class CreateBillOfMaterialsMojoTest {
     /**
      * Test of execute method, of class CreateBillOfMaterialsMojo.
      */
-    @Test
-    @Ignore
+    @Test    
     public void testExecute() throws Exception {
-        System.out.println("execute");
-        CreateBillOfMaterialsMojo instance = null;
+        final MavenProject projectMock = createMinimalProject();
+        final CreateBillOfMaterialsMojo instance = new CreateBillOfMaterialsMojo(
+                "CreateBillOfMaterialsMojoTest/tickets/bill-of-materials.txt", projectMock, new File("target"));
+        when(projectMock.getPackaging()).thenReturn("pom");
         instance.execute();
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertTrue("Expected existing file",
+                new File("target/CreateBillOfMaterialsMojoTest/tickets/bill-of-materials.txt").exists());
     }
 
     /**

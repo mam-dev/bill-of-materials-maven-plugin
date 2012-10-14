@@ -138,8 +138,6 @@
                 <configuration>
                     <instrumentation>
                         <excludes>
-                            <exclude>net/oneandone/maven/plugins/billofmaterials/*Mojo.class</exclude>
-                            <exclude>net/oneandone/maven/plugins/billofmaterials/*Mojo$*.class</exclude>
                             <exclude>HelpMojo.class</exclude>
                         </excludes>
                     </instrumentation>
