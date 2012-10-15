@@ -46,9 +46,9 @@ bf6f62ab2ce6c6b50298ce618d4f1d890df58357  company-parent-pom-1.0-SNAPSHOT.pom
         </section>
         <section name="Usage">
             <subsection name="Writing the bill of materials.">
-                <p>Note that by default the plugin is invoked during the 
-                    <code>install</code> phase, as only then we have access to the 
-                    attached artifacts.                
+                <p>Note that by default the plugin is invoked during the
+                    <code>install</code> phase, as only then we have access to the
+                    attached artifacts.
                 </p>
                 <source><![CDATA[
     <build>
@@ -61,7 +61,7 @@ bf6f62ab2ce6c6b50298ce618d4f1d890df58357  company-parent-pom-1.0-SNAPSHOT.pom
                     <execution>
                         <id>create-bill-of-materials</id>
                         <goals>
-                            <goal>create-bill-of-materials</goal>
+                            <goal>create</goal>
                         </goals>
                     </execution>
                 </executions>
@@ -92,7 +92,7 @@ bf6f62ab2ce6c6b50298ce618d4f1d890df58357  company-parent-pom-1.0-SNAPSHOT.pom
                         <id>read-bill-of-materials</id>
                         <phase>process-resources</phase>
                         <goals>
-                            <goal>read-bill-of-materials</goal>
+                            <goal>read</goal>
                         </goals>
                     </execution>
                 </executions>
