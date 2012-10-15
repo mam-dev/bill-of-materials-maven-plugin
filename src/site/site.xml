@@ -14,13 +14,30 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
+<?xml version="1.0" encoding="UTF-8"?>
 <project xsi:schemaLocation="http://maven.apache.org/DECORATION/1.0.1 http://maven.apache.org/xsd/decoration-1.0.1.xsd" xmlns="http://maven.apache.org/DECORATION/1.0.1"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <body>
-    <menu name="Overview">
-      <item name="Introduction" href="index.html"/>
-      <item name="Goals" href="plugin-info.html"/>
-    </menu>
-  </body>
+    <body>
+      <menu name="Overview">
+        <item name="Introduction" href="index.html"/>
+        <item name="Goals" href="plugin-info.html"/>
+      </menu>
+    </body>
+    <custom>
+      <fluidoSkin>
+          <searchEnabled>true</searchEnabled>
+          <sideBarEnabled>true</sideBarEnabled>
+          <gitHub>
+              <projectId>1and1/bill-of-materials-maven-plugin</projectId>
+              <ribbonOrientation>right</ribbonOrientation>
+              <ribbonColor>gray</ribbonColor>
+          </gitHub>
+          <googlePlusOne />
+          <ohloh>
+              <projectId>bill-of-materials-maven-plugin</projectId>
+              <widget>factoids</widget>
+          </ohloh>
+      </fluidoSkin>
+    </custom>
 </project>
 
