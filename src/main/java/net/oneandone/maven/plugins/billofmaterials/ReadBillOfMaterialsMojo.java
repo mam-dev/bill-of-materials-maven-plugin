@@ -50,7 +50,7 @@ import org.slf4j.impl.StaticLoggerBinder;
  *
  * @author Mirko Friedenhagen <mirko.friedenhagen@1und1.de>
  */
-@Mojo(name = "read-bill-of-materials")
+@Mojo(name = "read")
 public class ReadBillOfMaterialsMojo extends AbstractBillOfMaterialsMojo {
     /**
      * Logger.
@@ -85,7 +85,7 @@ public class ReadBillOfMaterialsMojo extends AbstractBillOfMaterialsMojo {
             getProject().getProperties().put("qaBillOfMaterials", qaBillOfMaterials);
         } catch (IOException e) {
             LOG.warn(String.format(
-                        Locale.ENGLISH, "Could not read content '%s', did you run mam-yp:create-bill-of-materials?", e));
+                        Locale.ENGLISH, "Could not read content '%s', did you run bill-of-materials:create?", e));
         }
     }
 

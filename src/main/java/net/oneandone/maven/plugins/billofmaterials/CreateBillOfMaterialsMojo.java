@@ -57,7 +57,7 @@ import org.slf4j.impl.StaticLoggerBinder;
  *
  * @author Mirko Friedenhagen <mirko.friedenhagen@1und1.de>
  */
-@Mojo(name = "create-bill-of-materials", aggregator = false, defaultPhase = LifecyclePhase.INSTALL)
+@Mojo(name = "create", aggregator = false, defaultPhase = LifecyclePhase.INSTALL)
 public class CreateBillOfMaterialsMojo extends AbstractBillOfMaterialsMojo {
 
     /**
