@@ -4,7 +4,7 @@
     <parent>
         <groupId>net.oneandone.maven.poms</groupId>
         <artifactId>foss-parent</artifactId>
-        <version>1.1.4</version>
+        <version>1.1.6</version>
     </parent>
     <groupId>net.oneandone.maven.plugins</groupId>
     <artifactId>bill-of-materials-maven-plugin</artifactId>
@@ -103,7 +103,7 @@
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
-            <artifactId>mockito-all</artifactId>
+            <artifactId>mockito-core</artifactId>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -166,18 +166,6 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-invoker-plugin</artifactId>
                 <version>${maven-invoker-plugin.version}</version>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-changes-plugin</artifactId>
-                <version>${maven-changes-plugin.version}</version>
-                <reportSets>
-                    <reportSet>
-                        <reports>
-                            <report>github-report</report>
-                        </reports>
-                    </reportSet>
-                </reportSets>
             </plugin>
         </plugins>
     </reporting>
