@@ -4,7 +4,7 @@
     <parent>
         <groupId>net.oneandone.maven.poms</groupId>
         <artifactId>foss-parent</artifactId>
-        <version>1.2</version>
+        <version>1.2.1</version>
     </parent>
     <groupId>net.oneandone.maven.plugins</groupId>
     <artifactId>bill-of-materials-maven-plugin</artifactId>
@@ -66,7 +66,6 @@
         <dependency>
             <groupId>org.apache.maven</groupId>
             <artifactId>maven-artifact</artifactId>
-            <version>3.0.4</version>
         </dependency>
         <dependency>
             <groupId>org.codehaus.plexus</groupId>
@@ -75,7 +74,6 @@
         <dependency>
             <groupId>org.apache.maven.plugin-tools</groupId>
             <artifactId>maven-plugin-annotations</artifactId>
-            <version>3.1</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.apache.maven</groupId>
