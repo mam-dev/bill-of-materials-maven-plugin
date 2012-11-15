@@ -36,7 +36,9 @@ public abstract class AbstractBillOfMaterialsMojo extends AbstractMojo {
     /**
      * Absolute path to the output-file.
      */
-    @Parameter(defaultValue = "${session.executionRootDirectory}/target/tickets/bill-of-materials.txt", required = true, property = "bill-of-materials.bomPath")
+    @Parameter(
+        defaultValue = "${session.executionRootDirectory}/target/tickets/bill-of-materials.txt",
+        required = true, property = "bill-of-materials.bomPath")
     private File bomPath;
 
     /**
