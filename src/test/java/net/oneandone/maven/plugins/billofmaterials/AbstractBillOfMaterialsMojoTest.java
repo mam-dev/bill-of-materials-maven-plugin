@@ -42,7 +42,7 @@ public class AbstractBillOfMaterialsMojoTest {
      */
     @Test
     public void testCalculateBillOfMaterialsFile() throws IOException {
-        AbstractBillOfMaterialsMojo instance = new AbstractBillOfMaterialsMojoImpl("bom.txt", null, new File("."));
+        AbstractBillOfMaterialsMojo instance = new AbstractBillOfMaterialsMojoImpl(new File("bom.txt"), null);
         File expResult = new File("bom.txt");
         File result = instance.calculateBillOfMaterialsFile();
         assertEquals(expResult.getCanonicalFile(), result.getCanonicalFile());
@@ -54,15 +54,15 @@ public class AbstractBillOfMaterialsMojoTest {
     @Test
     public void testGetProject() {
         final MavenProject mavenProject = new MavenProject();
-        AbstractBillOfMaterialsMojo instance = new AbstractBillOfMaterialsMojoImpl("DOES_NOT_MATTER", mavenProject, null);
+        AbstractBillOfMaterialsMojo instance = new AbstractBillOfMaterialsMojoImpl(new File("DOES_NOT_MATTER"), mavenProject);
         MavenProject result = instance.getProject();
         assertEquals(mavenProject, result);
     }
 
     private class AbstractBillOfMaterialsMojoImpl extends AbstractBillOfMaterialsMojo {
 
-        AbstractBillOfMaterialsMojoImpl(String billOfMaterialsPath, MavenProject project, File sessionExectionRootDirectory) {
-            super(billOfMaterialsPath, project, sessionExectionRootDirectory);
+        AbstractBillOfMaterialsMojoImpl(File billOfMaterialsPath, MavenProject project) {
+            super(billOfMaterialsPath, project);
         }
         
         @Override

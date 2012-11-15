@@ -41,7 +41,7 @@ public class ReadBillOfMaterialsMojoTest {
     @Test
     public void testExecuteBOMNotFound() throws MojoExecutionException, MojoFailureException {
         ReadBillOfMaterialsMojo instance = createReadBillOfMaterialsMojo(
-                "NON_EXISTING/bill-of-materials.txt");
+                "target/test-classes/NON_EXISTING/bill-of-materials.txt");
         instance.setLog(LOG);
         instance.execute();
         verify(LOG).warn(
@@ -54,7 +54,7 @@ public class ReadBillOfMaterialsMojoTest {
     @Test
     public void testExecuteBOMFound() throws MojoExecutionException, MojoFailureException {
         ReadBillOfMaterialsMojo instance = createReadBillOfMaterialsMojo(
-                "ReadBillOfMaterialsMojoTest/bill-of-materials.txt");
+                "target/test-classes/ReadBillOfMaterialsMojoTest/bill-of-materials.txt");
         instance.execute();
         assertTrue(properties.getProperty("qaBillOfMaterials").startsWith("# g:a:v "));
     }
@@ -69,7 +69,7 @@ public class ReadBillOfMaterialsMojoTest {
                 String billOfMaterialsPath) {
         when(mockedProject.getProperties()).thenReturn(properties);
         ReadBillOfMaterialsMojo instance = new ReadBillOfMaterialsMojo(
-                billOfMaterialsPath, mockedProject, new File("target/test-classes"));
+                new File(billOfMaterialsPath), mockedProject);
         instance.setLog(LOG);
         return instance;
     }

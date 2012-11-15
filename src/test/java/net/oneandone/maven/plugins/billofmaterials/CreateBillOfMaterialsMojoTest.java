@@ -52,7 +52,7 @@ public class CreateBillOfMaterialsMojoTest {
     public void testExecute() throws Exception {
         final MavenProject projectMock = createMinimalProject();
         final CreateBillOfMaterialsMojo instance = new CreateBillOfMaterialsMojo(
-                "CreateBillOfMaterialsMojoTest/tickets/bill-of-materials.txt", projectMock, new File("target"));
+                new File("target/CreateBillOfMaterialsMojoTest/tickets/bill-of-materials.txt"), projectMock);
         when(projectMock.getPackaging()).thenReturn("pom");
         instance.execute();
         assertTrue("Expected existing file",
@@ -65,7 +65,7 @@ public class CreateBillOfMaterialsMojoTest {
     @Test
     public void testGetListOfArtifacts() {
         final MavenProject projectMock = createMinimalProject();        
-        final CreateBillOfMaterialsMojo instance = new CreateBillOfMaterialsMojo(null, projectMock, null);
+        final CreateBillOfMaterialsMojo instance = new CreateBillOfMaterialsMojo(null, projectMock);
         when(projectMock.getPackaging()).thenReturn("pom");
         final List pomResult = instance.getListOfArtifacts();
         // no attached artifacts => POM projects have no artifact => empty list.
@@ -84,7 +84,7 @@ public class CreateBillOfMaterialsMojoTest {
     public void testAddHashEntryForPom() throws Exception {
         final List<String> hashBaseNames = new ArrayList<String>();
         final MavenProject projectMock = createMinimalProject();
-        CreateBillOfMaterialsMojo sut = new CreateBillOfMaterialsMojo(null, projectMock, null);
+        CreateBillOfMaterialsMojo sut = new CreateBillOfMaterialsMojo(null, projectMock);
         sut.addHashEntryForPom(hashBaseNames);
         assertEquals("da39a3ee5e6b4b0d3255bfef95601890afd80709  a-v.pom", hashBaseNames.get(0));
     }
@@ -98,7 +98,7 @@ public class CreateBillOfMaterialsMojoTest {
         final MavenProject projectMock = createMinimalProject();
         final List<String> hashBaseNames = Arrays.asList("line1", "line2");
         final StringBuilder result = new StringBuilder();
-        CreateBillOfMaterialsMojo sut = new CreateBillOfMaterialsMojo(null, projectMock, null) {
+        CreateBillOfMaterialsMojo sut = new CreateBillOfMaterialsMojo(null, projectMock) {
             void write(final String content) {
                 result.append(content);
             }
@@ -110,7 +110,7 @@ public class CreateBillOfMaterialsMojoTest {
     @Test
     public void testProjectCommentToString() {
         final MavenProject projectMock = createMinimalProject();
-        final CreateBillOfMaterialsMojo sut = new CreateBillOfMaterialsMojo("DOES NOT MATTEER", projectMock, null);
+        final CreateBillOfMaterialsMojo sut = new CreateBillOfMaterialsMojo(new File("DOES NOT MATTEER"), projectMock);
         assertEquals("# g:a:v user=wwhite\n", sut.projectCommentToString("wwhite"));
 
     }

@@ -34,22 +34,16 @@ public abstract class AbstractBillOfMaterialsMojo extends AbstractMojo {
     private static final Logger LOG = LoggerFactory.getLogger(AbstractBillOfMaterialsMojo.class);
 
     /**
-     * Path to the Output-file relative to the basedir of the execution-root.
+     * Absolute path to the output-file.
      */
-    @Parameter(defaultValue = "target/tickets/bill-of-materials.txt", required = true, property = "bill-of-materials.path")
-    private String billOfMaterialsPath;
+    @Parameter(defaultValue = "${session.executionRootDirectory}/target/tickets/bill-of-materials.txt", required = true, property = "bill-of-materials.bomPath")
+    private File bomPath;
 
     /**
      * The Maven project.
      */
     @Parameter(defaultValue = "${project}", readonly = true)
     private MavenProject project;
-
-    /**
-     * The exectionRootDirectory of the current Maven session.
-     */
-    @Parameter(defaultValue = "${session.executionRootDirectory}", readonly = true)
-    private File sessionExectionRootDirectory;
 
     /**
      * Default constructor for maven.
@@ -62,12 +56,10 @@ public abstract class AbstractBillOfMaterialsMojo extends AbstractMojo {
      * Just for tests.
      * @param billOfMaterialsPath relative path to bom.
      * @param project current project
-     * @param sessionExectionRootDirectory root directory.
      */
-    AbstractBillOfMaterialsMojo(String billOfMaterialsPath, MavenProject project, File sessionExectionRootDirectory) {
-        this.billOfMaterialsPath = billOfMaterialsPath;
+    AbstractBillOfMaterialsMojo(File billOfMaterialsPath, MavenProject project) {
+        this.bomPath = billOfMaterialsPath;
         this.project = project;
-        this.sessionExectionRootDirectory = sessionExectionRootDirectory;
     }
 
     
@@ -77,9 +69,8 @@ public abstract class AbstractBillOfMaterialsMojo extends AbstractMojo {
      * @return {@link File} pointing to the bill of materials.
      */
     File calculateBillOfMaterialsFile() {
-        final File bomFile = new File(sessionExectionRootDirectory, billOfMaterialsPath);
-        LOG.debug("bill-of-materials file={}", bomFile);
-        return bomFile;
+        LOG.debug("bill-of-materials file={}", bomPath);
+        return bomPath;
     }
 
     /**

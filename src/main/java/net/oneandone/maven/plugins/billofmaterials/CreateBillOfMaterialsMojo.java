@@ -79,12 +79,11 @@ public class CreateBillOfMaterialsMojo extends AbstractBillOfMaterialsMojo {
     
     /**
      * Just for tests.
-     * @param billOfMaterialsPath relative path to bom.
+     * @param billOfMaterialsPath path to bom.
      * @param project current project
-     * @param sessionExectionRootDirectory root directory.
      */
-    CreateBillOfMaterialsMojo(String billOfMaterialsPath, MavenProject project, File sessionExectionRootDirectory) {
-        super(billOfMaterialsPath, project, sessionExectionRootDirectory);
+    CreateBillOfMaterialsMojo(File billOfMaterialsPath, MavenProject project) {
+        super(billOfMaterialsPath, project);
     }
     
     @Override
