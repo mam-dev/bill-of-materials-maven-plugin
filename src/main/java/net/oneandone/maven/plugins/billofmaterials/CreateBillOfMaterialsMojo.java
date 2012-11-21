@@ -107,7 +107,7 @@ public class CreateBillOfMaterialsMojo extends AbstractBillOfMaterialsMojo {
      */
     List<Artifact> getListOfArtifacts() {
         final MavenProject project = getProject();
-        final List<Artifact> artifacts = project.getAttachedArtifacts();
+        final List<Artifact> artifacts = new ArrayList<Artifact>(project.getAttachedArtifacts());
         final String packaging = project.getPackaging();
         // POMs return null as their artifact, which will crash the transformation lateron.
         if (!"pom".equals(packaging)) {
