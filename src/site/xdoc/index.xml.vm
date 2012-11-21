@@ -24,7 +24,8 @@ limitations under the License.
         <section name="Introduction">
             <p>
                 This plugin writes a bill of materials compatible with shasum to
-                a designated directory. The format looks like this:
+                a designated file (see <a href="create-mojo.html#bomPath">bomPath</a>)
+                The format looks like this:
             </p>
             <source><![CDATA[
 # company:company-parent-pom:1.0-SNAPSHOT user=mirko
