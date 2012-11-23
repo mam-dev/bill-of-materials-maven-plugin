@@ -71,10 +71,22 @@ public class CreateBillOfMaterialsMojo extends AbstractBillOfMaterialsMojo {
     private final HashFunction sha1 = Hashing.sha1();
 
     /**
+     * Function to calculate the hash of a file.
+     */
+    private final Function<File, String> toBomStringFunction;
+
+    /**
+     * Function to get the file from the artifact.
+     */
+    private final Function<Artifact, File> toFileFunction;
+
+    /**
      * Default constructor for maven.
      */
     CreateBillOfMaterialsMojo() {
         super();
+        toFileFunction = new ToFileFunction();
+        toBomStringFunction = new ToBomStringFunction(sha1);
     }
     
     /**
@@ -84,6 +96,8 @@ public class CreateBillOfMaterialsMojo extends AbstractBillOfMaterialsMojo {
      */
     CreateBillOfMaterialsMojo(File billOfMaterialsPath, MavenProject project) {
         super(billOfMaterialsPath, project);
+        toFileFunction = new ToFileFunction();
+        toBomStringFunction = new ToBomStringFunction(sha1);
     }
     
     @Override
@@ -92,8 +106,8 @@ public class CreateBillOfMaterialsMojo extends AbstractBillOfMaterialsMojo {
         try {
             final List<Artifact> artifacts = getListOfArtifacts();
             LOG.debug("artifacts={}", artifacts);
-            final ArrayList<File> files = new ArrayList<File>(Collections2.transform(artifacts, new ToFileFunction()));
-            final ArrayList<String> hashBaseNames = new ArrayList<String>(Collections2.transform(files, new ToBomStringFunction(sha1)));
+            final ArrayList<File> files = new ArrayList<File>(Collections2.transform(artifacts, toFileFunction));
+            final ArrayList<String> hashBaseNames = new ArrayList<String>(Collections2.transform(files, toBomStringFunction));
             addHashEntryForPom(hashBaseNames);
             writeResults(hashBaseNames);
         } catch (IOException ex) {

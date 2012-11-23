@@ -6,11 +6,11 @@
         <Class name="HelpMojo" />
     </Match>
     <Match><!-- should fail on null values! -->
-        <Class name="net.oneandone.maven.plugins.billofmaterials.CreateBillOfMaterialsMojo$ToFile" />
+        <Class name="net.oneandone.maven.plugins.billofmaterials.ToFileFunction" />
         <Bug pattern="NP_PARAMETER_MUST_BE_NONNULL_BUT_MARKED_AS_NULLABLE" />
     </Match>
     <Match><!-- should fail on null values! -->
-        <Class name="net.oneandone.maven.plugins.billofmaterials.CreateBillOfMaterialsMojo$ToBomString" />
+        <Class name="net.oneandone.maven.plugins.billofmaterials.ToBomStringFunction" />
         <Bug pattern="NP_PARAMETER_MUST_BE_NONNULL_BUT_MARKED_AS_NULLABLE" />
     </Match>
     <Match><!-- sha1sum wants Unix line seperator. -->

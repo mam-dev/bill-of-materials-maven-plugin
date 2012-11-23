@@ -21,6 +21,7 @@ import org.apache.maven.artifact.Artifact;
 
 /**
  * Returns the file connected to the given {@link Artifact}.
+ * @author Mirko Friedenhagen
  */
 final class ToFileFunction implements Function<Artifact, File> {
 

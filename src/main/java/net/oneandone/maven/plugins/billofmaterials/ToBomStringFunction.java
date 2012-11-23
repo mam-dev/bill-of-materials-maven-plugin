@@ -24,6 +24,7 @@ import java.io.IOException;
 
 /**
  * Creates a hashsum check for a single artifact.
+ * @author Mirko Friedenhagen
  */
 final class ToBomStringFunction implements Function<File, String> {
     /**
@@ -43,8 +44,7 @@ final class ToBomStringFunction implements Function<File, String> {
         final HashCode hash;
         try {
             hash = Files.hash(file, hashFunction);
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             throw new IllegalArgumentException("Could not create hash for " + file, e);
         }
         return hash + "  " + file.getName();
