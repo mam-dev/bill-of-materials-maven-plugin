@@ -17,12 +17,14 @@ package net.oneandone.maven.plugins.billofmaterials;
 
 import com.google.common.hash.Hashing;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import net.oneandone.maven.plugins.billofmaterials.ToBomStringFunction;
 import net.oneandone.maven.plugins.billofmaterials.ToFileFunction;
 import org.apache.maven.artifact.Artifact;
+import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.project.MavenProject;
 import static org.junit.Assert.*;
@@ -59,6 +61,22 @@ public class CreateBillOfMaterialsMojoTest {
                 new File("target/CreateBillOfMaterialsMojoTest/tickets/bill-of-materials.txt").exists());
     }
 
+    /**
+     * Test of execute method, of class CreateBillOfMaterialsMojo.
+     */
+    @Test(expected = MojoExecutionException.class)
+    public void testExecuteIOException() throws Exception {
+        final MavenProject projectMock = createMinimalProject();
+        final CreateBillOfMaterialsMojo instance = new CreateBillOfMaterialsMojo(
+                new File("target/CreateBillOfMaterialsMojoTest/tickets/bill-of-materials.txt"), projectMock) {
+            @Override
+            void addHashEntryForPom(List<String> hashBaseNames) throws IOException {
+                throw new IOException("Oops");
+            }
+        };
+        when(projectMock.getPackaging()).thenReturn("pom");
+        instance.execute();
+    }
     /**
      * Test of getListOfArtifacts method, of class CreateBillOfMaterialsMojo.
      */
