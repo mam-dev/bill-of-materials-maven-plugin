@@ -47,6 +47,9 @@ public abstract class AbstractBillOfMaterialsMojo extends AbstractMojo {
     @Parameter(defaultValue = "${project}", readonly = true)
     private MavenProject project;
 
+    @Parameter(defaultValue = "${project.directory}", readonly = true)
+    public File targetDirectory;
+
     /**
      * Default constructor for maven.
      */
@@ -80,6 +83,13 @@ public abstract class AbstractBillOfMaterialsMojo extends AbstractMojo {
      */
     MavenProject getProject() {
         return project;
+    }
+
+    /**
+     * @return the targetDirectory
+     */
+    File getTargetDirectory() {
+        return targetDirectory;
     }
 
 }

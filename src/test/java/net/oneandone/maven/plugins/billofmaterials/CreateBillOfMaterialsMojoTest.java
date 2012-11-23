@@ -20,8 +20,8 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import net.oneandone.maven.plugins.billofmaterials.CreateBillOfMaterialsMojo.ToBomString;
-import net.oneandone.maven.plugins.billofmaterials.CreateBillOfMaterialsMojo.ToFile;
+import net.oneandone.maven.plugins.billofmaterials.ToBomStringFunction;
+import net.oneandone.maven.plugins.billofmaterials.ToFileFunction;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.project.MavenProject;
@@ -117,7 +117,7 @@ public class CreateBillOfMaterialsMojoTest {
 
     @Test
     public void testToFile() {
-        final ToFile sut = new ToFile();
+        final ToFileFunction sut = new ToFileFunction();
         final File expected = new File("");
         final Artifact mock = mock(Artifact.class);
         when(mock.getFile()).thenReturn(expected);
@@ -126,14 +126,14 @@ public class CreateBillOfMaterialsMojoTest {
 
     @Test
     public void testToBomString() {
-        final ToBomString sut = new ToBomString(Hashing.sha1());
+        final ToBomStringFunction sut = new ToBomStringFunction(Hashing.sha1());
         final File fileForWhichWeWantToCalculateSha1 = new File(EMPTY_FILE_FOR_SHA1);
         assertEquals("da39a3ee5e6b4b0d3255bfef95601890afd80709  sha1-test-dummy.txt", sut.apply(fileForWhichWeWantToCalculateSha1));
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testToBomStringFail() {
-        final ToBomString sut = new ToBomString(Hashing.sha1());
+        final ToBomStringFunction sut = new ToBomStringFunction(Hashing.sha1());
         final File nonExistingFileForWhichWeWantToCalculateSha1 = new File("I DO NOT EXIST");
         sut.apply(nonExistingFileForWhichWeWantToCalculateSha1);
     }

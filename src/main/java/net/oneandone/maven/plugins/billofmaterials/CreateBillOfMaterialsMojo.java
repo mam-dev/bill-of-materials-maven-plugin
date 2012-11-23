@@ -92,8 +92,8 @@ public class CreateBillOfMaterialsMojo extends AbstractBillOfMaterialsMojo {
         try {
             final List<Artifact> artifacts = getListOfArtifacts();
             LOG.debug("artifacts={}", artifacts);
-            final ArrayList<File> files = new ArrayList<File>(Collections2.transform(artifacts, new ToFile()));
-            final ArrayList<String> hashBaseNames = new ArrayList<String>(Collections2.transform(files, new ToBomString(sha1)));
+            final ArrayList<File> files = new ArrayList<File>(Collections2.transform(artifacts, new ToFileFunction()));
+            final ArrayList<String> hashBaseNames = new ArrayList<String>(Collections2.transform(files, new ToBomStringFunction(sha1)));
             addHashEntryForPom(hashBaseNames);
             writeResults(hashBaseNames);
         } catch (IOException ex) {
@@ -123,6 +123,7 @@ public class CreateBillOfMaterialsMojo extends AbstractBillOfMaterialsMojo {
      */
     void addHashEntryForPom(final List<String> hashBaseNames) throws IOException {
         final MavenProject project = getProject();
+        //Files.copy(project.getFile(), new File(getTargetDirectory(), "pom.xml"));
         final HashCode sha1OfPom = Files.hash(project.getFile(), sha1);
         final String pomLine = String.format(Locale.ENGLISH, "%s  %s-%s.pom",
                     sha1OfPom, project.getArtifactId(), project.getVersion());
@@ -169,45 +170,5 @@ public class CreateBillOfMaterialsMojo extends AbstractBillOfMaterialsMojo {
                 Locale.ENGLISH,
                 "# %s:%s:%s user=%s\n",
                 project.getGroupId(), project.getArtifactId(), project.getVersion(), userName);
-    }
-
-    /**
-     * Returns the file connected to the given {@link Artifact}.
-     */
-    static final class ToFile implements Function<Artifact, File> {
-
-        @Override
-        public File apply(final Artifact artifact) {
-            return artifact.getFile();
-        }
-    }
-
-    /**
-     * Creates a hashsum check for a single artifact.
-     */
-    static final class ToBomString implements Function<File, String> {
-
-        /**
-         * SHA1 algorithm.
-         */
-        private final HashFunction hashFunction;
-
-        /**
-         * @param hashFunction to use.
-         */
-        ToBomString(HashFunction hashFunction) {
-            this.hashFunction = hashFunction;
-        }
-
-        @Override
-        public String apply(final File file) {
-            final HashCode hash;
-            try {
-                hash = Files.hash(file, hashFunction);
-            } catch (IOException e) {
-                throw new IllegalArgumentException("Could not create hash for " + file, e);
-            }
-            return hash + "  " + file.getName();
-        }
     }
 }
