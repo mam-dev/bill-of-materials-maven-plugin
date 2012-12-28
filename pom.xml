@@ -4,7 +4,7 @@
     <parent>
         <groupId>net.oneandone.maven.poms</groupId>
         <artifactId>foss-parent</artifactId>
-        <version>1.2.3</version>
+        <version>1.2.4</version>
     </parent>
     <groupId>net.oneandone.maven.plugins</groupId>
     <artifactId>bill-of-materials-maven-plugin</artifactId>
