@@ -136,7 +136,7 @@
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <configuration>
                     <excludes>
-                        <exclude>net/oneandone/maven/plugins/billofmaterials/HelpMojo.class</exclude>
+                        <exclude>**/net/oneandone/maven/plugins/billofmaterials/HelpMojo.*</exclude>
                     </excludes>
                 </configuration>
             </plugin>
