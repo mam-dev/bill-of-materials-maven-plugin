@@ -26,7 +26,7 @@
         <developerConnection>scm:git:ssh://git@github.com/1and1/bill-of-materials-maven-plugin.git</developerConnection>
         <url>https://github.com/1and1/bill-of-materials-maven-plugin/</url>
       <tag>HEAD</tag>
-  </scm>
+    </scm>
     <ciManagement>
         <system>Jenkins</system>
         <url>http://huschteguzzel.de/hudson/job/oneandone-bill-of-materials-maven-plugin/</url>
@@ -130,6 +130,15 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>**/net/oneandone/maven/plugins/billofmaterials/HelpMojo.*</exclude>
+                    </excludes>
+                </configuration>
             </plugin>
         </plugins>
     </build>
