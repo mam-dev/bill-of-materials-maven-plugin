@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>CreateBillOfMaterialsMojo.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="right"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">bill-of-materials Maven Plugin</a> &gt; <a href="index.html" class="el_package">net.oneandone.maven.plugins.billofmaterials</a> &gt; <span class="el_source">CreateBillOfMaterialsMojo.java</span></div><h1>CreateBillOfMaterialsMojo.java</h1><pre class="source lang-java linenums">/**
+ * Copyright 1&amp;1 Internet AG, https://github.com/1and1/
+ *
+ * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package net.oneandone.maven.plugins.billofmaterials;
+
+import com.google.common.base.Charsets;
+import com.google.common.base.Function;
+import com.google.common.base.Joiner;
+import com.google.common.collect.Collections2;
+import com.google.common.hash.HashCode;
+import com.google.common.hash.HashFunction;
+import com.google.common.hash.Hashing;
+import com.google.common.io.Files;
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import org.apache.maven.artifact.Artifact;
+import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugin.MojoFailureException;
+import org.apache.maven.plugins.annotations.LifecyclePhase;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.project.MavenProject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.slf4j.impl.StaticLoggerBinder;
+
+/**
+ * Creates a bill of materials for all installed artifacts.
+ *
+ * &lt;p&gt;This in the standard format for the &lt;tt&gt;sha1sum&lt;/tt&gt; command including meta information:&lt;/p&gt;
+ * &lt;pre&gt;
+ * # company:company-parent-pom:1.0-SNAPSHOT user=mirko
+ * 2dcb20b977ff170dd802c30b804229264c97ebf6  company-parent-pom-1.0-SNAPSHOT.pom
+ * # company:child1:1.0-SNAPSHOT user=mirko
+ * ed5b932c3157b347d0f7a4ec773ae5d5890c1ada  child1-1.0-SNAPSHOT-sources.jar
+ * 8294565e2a5d99b548b111fe6262719331436143  child1-1.0-SNAPSHOT.jar
+ * 082fa2206c4a00e3f428e9100199a0337ad42fdb  child1-1.0-SNAPSHOT.pom
+ * # company:child2:1.0-SNAPSHOT user=mirko
+ * 05d419cf53e175c6e84ddc1cf2fccdc9dd109c6b  child2-1.0-SNAPSHOT-sources.jar
+ * df633b963220ba124ffa80eb6ceab676934bb387  child2-1.0-SNAPSHOT.jar
+ * 5661e9270a02c5359be47615bb6ed9911105d878  child2-1.0-SNAPSHOT.pom
+ * &lt;/pre&gt;
+ *
+ * @author Mirko Friedenhagen &lt;mirko.friedenhagen@1und1.de&gt;
+ */
+@Mojo(name = &quot;create&quot;, aggregator = false, defaultPhase = LifecyclePhase.INSTALL)
+public class CreateBillOfMaterialsMojo extends AbstractBillOfMaterialsMojo {
+
+    /**
+     * Logger.
+     */
+<span class="fc" id="L66">    private static final Logger LOG = LoggerFactory.getLogger(CreateBillOfMaterialsMojo.class);</span>
+    
+    /**
+     * SHA1 hash function.
+     */
+<span class="fc" id="L71">    private final HashFunction sha1 = Hashing.sha1();</span>
+
+    /**
+     * Function to calculate the hash of a file.
+     */
+    private final Function&lt;File, String&gt; toBomStringFunction;
+
+    /**
+     * Function to get the file from the artifact.
+     */
+    private final Function&lt;Artifact, File&gt; toFileFunction;
+
+    /**
+     * Default constructor for maven.
+     */
+    CreateBillOfMaterialsMojo() {
+<span class="fc" id="L87">        super();</span>
+<span class="fc" id="L88">        toFileFunction = new ToFileFunction();</span>
+<span class="fc" id="L89">        toBomStringFunction = new ToBomStringFunction(sha1);</span>
+<span class="fc" id="L90">    }</span>
+    
+    /**
+     * Just for tests.
+     * @param billOfMaterialsPath path to bom.
+     * @param project current project
+     */
+    CreateBillOfMaterialsMojo(File billOfMaterialsPath, MavenProject project) {
+<span class="fc" id="L98">        super(billOfMaterialsPath, project);</span>
+<span class="fc" id="L99">        toFileFunction = new ToFileFunction();</span>
+<span class="fc" id="L100">        toBomStringFunction = new ToBomStringFunction(sha1);</span>
+<span class="fc" id="L101">    }</span>
+    
+    @Override
+    public void execute() throws MojoExecutionException, MojoFailureException {
+<span class="fc" id="L105">        StaticLoggerBinder.getSingleton().setMavenLog(this.getLog());</span>
+        try {
+<span class="fc" id="L107">            final List&lt;Artifact&gt; artifacts = getListOfArtifacts();</span>
+<span class="fc" id="L108">            LOG.debug(&quot;artifacts={}&quot;, artifacts);</span>
+<span class="fc" id="L109">            final ArrayList&lt;File&gt; files = new ArrayList&lt;File&gt;(Collections2.transform(artifacts, toFileFunction));</span>
+<span class="fc" id="L110">            final ArrayList&lt;String&gt; hashBaseNames = new ArrayList&lt;String&gt;(Collections2.transform(files, toBomStringFunction));</span>
+<span class="fc" id="L111">            addHashEntryForPom(hashBaseNames);</span>
+<span class="fc" id="L112">            writeResults(hashBaseNames);</span>
+<span class="fc" id="L113">        } catch (IOException ex) {</span>
+<span class="fc" id="L114">            throw new MojoExecutionException(ex.toString(), ex);</span>
+<span class="fc" id="L115">        }</span>
+<span class="fc" id="L116">    }</span>
+
+    /**
+     * Creates a list of all artifacts for the build.
+     * @return a list of all artifacts for the build including the attached ones.
+     */
+    List&lt;Artifact&gt; getListOfArtifacts() {
+<span class="fc" id="L123">        final MavenProject project = getProject();</span>
+<span class="fc" id="L124">        final List&lt;Artifact&gt; artifacts = new ArrayList&lt;Artifact&gt;(project.getAttachedArtifacts());</span>
+<span class="fc" id="L125">        final String packaging = project.getPackaging();</span>
+        // POMs return null as their artifact, which will crash the transformation lateron.
+<span class="fc bfc" id="L127" title="All 2 branches covered.">        if (!&quot;pom&quot;.equals(packaging)) {</span>
+<span class="fc" id="L128">            artifacts.add(project.getArtifact());</span>
+        }
+<span class="fc" id="L130">        return artifacts;</span>
+    }
+
+    /**
+     * Adds the hash entry for the POM.
+     * @param hashBaseNames to add the entry to.
+     * @throws IOException when the POM could not be read.
+     */
+    void addHashEntryForPom(final List&lt;String&gt; hashBaseNames) throws IOException {
+<span class="fc" id="L139">        final MavenProject project = getProject();</span>
+        //Files.copy(project.getFile(), new File(getTargetDirectory(), &quot;pom.xml&quot;));
+<span class="fc" id="L141">        final HashCode sha1OfPom = Files.hash(project.getFile(), sha1);</span>
+<span class="fc" id="L142">        final String pomLine = String.format(Locale.ENGLISH, &quot;%s  %s-%s.pom&quot;,</span>
+                    sha1OfPom, project.getArtifactId(), project.getVersion());
+<span class="fc" id="L144">        hashBaseNames.add(pomLine);</span>
+<span class="fc" id="L145">    }</span>
+
+    /**
+     * Writes the resulting hash file to {@link CreateBillOfMaterialsMojo#billOfMaterialsPath}.
+     *
+     * @param hashBaseNames to write
+     * @throws IOException when the parent directory could not be created or something went wrong while writing the result.
+     */
+    void writeResults(final List&lt;String&gt; hashBaseNames) throws IOException {
+<span class="fc" id="L154">        final String hashBaseNamesAsString = Joiner.on(&quot;\n&quot;).join(hashBaseNames) + &quot;\n&quot;;</span>
+<span class="fc" id="L155">        final String userName = System.getProperty(&quot;user.name&quot;);</span>
+<span class="fc" id="L156">        write(projectCommentToString(userName));        </span>
+<span class="fc" id="L157">        write(hashBaseNamesAsString);</span>
+<span class="fc" id="L158">    }</span>
+
+    /**
+     * Writes content to the bomFile creating intermediate directories.
+     *
+     * @param content to write
+     * @throws IOException when the target directory could not be created or the content could not be written.
+     */
+    void write(final String content) throws IOException {
+<span class="fc" id="L167">        final File bomFile = calculateBillOfMaterialsFile();</span>
+<span class="fc" id="L168">        final File parentFile = bomFile.getParentFile();</span>
+<span class="pc bpc" id="L169" title="1 of 4 branches missed.">        if (!parentFile.exists() &amp;&amp; !parentFile.mkdirs()) {</span>
+<span class="nc" id="L170">            throw new IOException(&quot;Could not create parent directory for &quot; + bomFile);</span>
+        }
+<span class="fc" id="L172">        Files.append(content, bomFile, Charsets.UTF_8);</span>
+<span class="fc" id="L173">    }</span>
+    
+    /**
+     * Returns a string representation for the comment.
+     * 
+     * @param userName current user
+     * @return string representation for the comment.
+     */
+    String projectCommentToString(final String userName) {
+<span class="fc" id="L182">        final MavenProject project = getProject();</span>
+<span class="fc" id="L183">        return String.format(</span>
+                Locale.ENGLISH,
+                &quot;# %s:%s:%s user=%s\n&quot;,
+                project.getGroupId(), project.getArtifactId(), project.getVersion(), userName);
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.1.201212231917</span></div></body></html>

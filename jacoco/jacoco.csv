@@ -1,0 +1,6 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+bill-of-materials Maven Plugin,net.oneandone.maven.plugins.billofmaterials,ToFileFunction,0,6,0,0,0,2,0,2,0,2
+bill-of-materials Maven Plugin,net.oneandone.maven.plugins.billofmaterials,ReadBillOfMaterialsMojo,0,52,0,0,0,15,0,4,0,4
+bill-of-materials Maven Plugin,net.oneandone.maven.plugins.billofmaterials,CreateBillOfMaterialsMojo,12,211,1,5,1,44,1,11,0,9
+bill-of-materials Maven Plugin,net.oneandone.maven.plugins.billofmaterials,AbstractBillOfMaterialsMojo,0,27,0,0,0,10,0,5,0,5
+bill-of-materials Maven Plugin,net.oneandone.maven.plugins.billofmaterials,ToBomStringFunction,0,38,0,0,0,8,0,2,0,2
