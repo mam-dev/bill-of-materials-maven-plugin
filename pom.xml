@@ -4,14 +4,14 @@
     <parent>
         <groupId>net.oneandone.maven.poms</groupId>
         <artifactId>foss-parent</artifactId>
-        <version>1.3.7</version>
+        <version>1.3.14</version>
     </parent>
     <groupId>net.oneandone.maven.plugins</groupId>
     <artifactId>bill-of-materials-maven-plugin</artifactId>
     <version>3.1-SNAPSHOT</version>
     <packaging>maven-plugin</packaging>
 
-    <name>bill-of-materials Maven Plugin</name>
+    <name>1-and-1 :: Bill of Materials Plugin for Maven</name>
     <description>Plugin to create and read a bill of materials, i.e. the SHA1 sum of all artifacts and their names.</description>
     <url>http://1and1.github.com/bill-of-materials-maven-plugin/</url>
 
