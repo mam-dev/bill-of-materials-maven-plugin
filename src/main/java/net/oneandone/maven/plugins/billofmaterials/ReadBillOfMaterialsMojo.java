@@ -22,6 +22,7 @@ import java.io.IOException;
 import java.util.Locale;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
+import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.project.MavenProject;
 import org.slf4j.Logger;
@@ -50,7 +51,7 @@ import org.slf4j.impl.StaticLoggerBinder;
  *
  * @author Mirko Friedenhagen <mirko.friedenhagen@1und1.de>
  */
-@Mojo(name = "read")
+@Mojo(name = "read", defaultPhase = LifecyclePhase.INSTALL)
 public class ReadBillOfMaterialsMojo extends AbstractBillOfMaterialsMojo {
     /**
      * Logger.
