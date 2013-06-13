@@ -21,8 +21,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import net.oneandone.maven.plugins.billofmaterials.ToBomStringFunction;
-import net.oneandone.maven.plugins.billofmaterials.ToFileFunction;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.logging.Log;
@@ -50,7 +48,7 @@ public class CreateBillOfMaterialsMojoTest {
     /**
      * Test of execute method, of class CreateBillOfMaterialsMojo.
      */
-    @Test    
+    @Test
     public void testExecute() throws Exception {
         final MavenProject projectMock = createMinimalProject();
         final CreateBillOfMaterialsMojo instance = new CreateBillOfMaterialsMojo(
@@ -82,7 +80,7 @@ public class CreateBillOfMaterialsMojoTest {
      */
     @Test
     public void testGetListOfArtifacts() {
-        final MavenProject projectMock = createMinimalProject();        
+        final MavenProject projectMock = createMinimalProject();
         final CreateBillOfMaterialsMojo instance = new CreateBillOfMaterialsMojo(null, projectMock);
         when(projectMock.getPackaging()).thenReturn("pom");
         final List pomResult = instance.getListOfArtifacts();
@@ -161,7 +159,23 @@ public class CreateBillOfMaterialsMojoTest {
     public void testDefaultConstructor() {
         new CreateBillOfMaterialsMojo();
     }
-    
+
+    @Test(expected = IOException.class)
+    public void testCouldNotCreateParentDirectory() throws IOException {
+        CreateBillOfMaterialsMojo sut = new CreateBillOfMaterialsMojo() {
+            @Override
+            boolean createParentDirectory(File parentDirectory) {
+                return false;
+            }
+
+            @Override
+            File calculateBillOfMaterialsFile() {
+                return new File("");
+            }
+        };
+        sut.write("DOES_NOT_MATTER");
+    }
+
     private MavenProject createMinimalProject() {
         final MavenProject projectMock = mock(MavenProject.class);
         when(projectMock.getGroupId()).thenReturn("g");

@@ -165,8 +165,8 @@ public class CreateBillOfMaterialsMojo extends AbstractBillOfMaterialsMojo {
      */
     void write(final String content) throws IOException {
         final File bomFile = calculateBillOfMaterialsFile();
-        final File parentFile = bomFile.getParentFile();
-        if (!parentFile.exists() && !parentFile.mkdirs()) {
+        final File parentDirectory = bomFile.getParentFile();
+        if (!createParentDirectory(parentDirectory)) {
             throw new IOException("Could not create parent directory for " + bomFile);
         }
         Files.append(content, bomFile, Charsets.UTF_8);
@@ -184,5 +184,15 @@ public class CreateBillOfMaterialsMojo extends AbstractBillOfMaterialsMojo {
                 Locale.ENGLISH,
                 "# %s:%s:%s user=%s\n",
                 project.getGroupId(), project.getArtifactId(), project.getVersion(), userName);
+    }
+
+    /**
+     * Creates directory for storage.
+     *
+     * @param parentDirectory 
+     * @return true when parentDirectory could not be created.
+     */
+    boolean createParentDirectory(final File parentDirectory) {
+        return parentDirectory.exists() || parentDirectory.mkdirs();
     }
 }

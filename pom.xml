@@ -19,8 +19,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven-checkstyle-plugin.suppressionsLocation>file:src/conf/checkstyle-suppressions.xml</maven-checkstyle-plugin.suppressionsLocation>
         <findbugs-maven-plugin.excludeFilterFile>src/conf/findbugs-exclude.xml</findbugs-maven-plugin.excludeFilterFile>
-        <cobertura.skip>true</cobertura.skip>
         <scmpublish.content>target/staging/bill-of-materials-maven-plugin</scmpublish.content>
+        <jacoco.check.branchRatio>87</jacoco.check.branchRatio>
     </properties>
     <scm>
         <connection>scm:git:git://github.com/1and1/bill-of-materials-maven-plugin.git</connection>
@@ -68,10 +68,6 @@
         <dependency>
             <groupId>org.apache.maven</groupId>
             <artifactId>maven-artifact</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.codehaus.plexus</groupId>
-            <artifactId>plexus-utils</artifactId>
         </dependency>
         <dependency>
             <groupId>org.apache.maven.plugin-tools</groupId>
