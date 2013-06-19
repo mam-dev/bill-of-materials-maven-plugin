@@ -3,7 +3,7 @@
 <rss version="0.91">
   <channel>
     <title>1-and-1 :: Bill of Materials Plugin for Maven - Checkstyle report</title>
-    <link>http://1and1.github.com/bill-of-materials-maven-plugin/</link>
+    <link>http://1and1.github.io/bill-of-materials-maven-plugin/</link>
     <description>1-and-1 :: Bill of Materials Plugin for Maven - Checkstyle report</description>
     <language>en-us</language>
     <copyright>&#169;2012 - 2013 1&1</copyright>
@@ -13,9 +13,9 @@
              Warnings: 0,
              Infos: 0
       </title>
-            <link>http://1and1.github.com/bill-of-materials-maven-plugin//checkstyle.html</link>
+            <link>http://1and1.github.io/bill-of-materials-maven-plugin//checkstyle.html</link>
       <description>
-        <p>Click <a href="http://1and1.github.com/bill-of-materials-maven-plugin//checkstyle.html">here</a> for the full Checkstyle report.</p>
+        <p>Click <a href="http://1and1.github.io/bill-of-materials-maven-plugin//checkstyle.html">here</a> for the full Checkstyle report.</p>
 
         <table summary="Files" boder="1">
           <thead>
@@ -29,7 +29,7 @@
           <tbody>
                           <tr>
                 <td>
-                  <a href="http://1and1.github.com/bill-of-materials-maven-plugin//checkstyle.html#net.oneandone.maven.plugins.billofmaterials.CreateBillOfMaterialsMojo.java">net/oneandone/maven/plugins/billofmaterials/CreateBillOfMaterialsMojo.java</a>
+                  <a href="http://1and1.github.io/bill-of-materials-maven-plugin//checkstyle.html#net.oneandone.maven.plugins.billofmaterials.CreateBillOfMaterialsMojo.java">net/oneandone/maven/plugins/billofmaterials/CreateBillOfMaterialsMojo.java</a>
                 </td>
                 <td>
                   0
@@ -43,7 +43,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://1and1.github.com/bill-of-materials-maven-plugin//checkstyle.html#net.oneandone.maven.plugins.billofmaterials.ReadBillOfMaterialsMojo.java">net/oneandone/maven/plugins/billofmaterials/ReadBillOfMaterialsMojo.java</a>
+                  <a href="http://1and1.github.io/bill-of-materials-maven-plugin//checkstyle.html#net.oneandone.maven.plugins.billofmaterials.ReadBillOfMaterialsMojo.java">net/oneandone/maven/plugins/billofmaterials/ReadBillOfMaterialsMojo.java</a>
                 </td>
                 <td>
                   0
@@ -57,7 +57,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://1and1.github.com/bill-of-materials-maven-plugin//checkstyle.html#net.oneandone.maven.plugins.billofmaterials.ToBomStringFunction.java">net/oneandone/maven/plugins/billofmaterials/ToBomStringFunction.java</a>
+                  <a href="http://1and1.github.io/bill-of-materials-maven-plugin//checkstyle.html#net.oneandone.maven.plugins.billofmaterials.ToBomStringFunction.java">net/oneandone/maven/plugins/billofmaterials/ToBomStringFunction.java</a>
                 </td>
                 <td>
                   0
@@ -71,7 +71,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://1and1.github.com/bill-of-materials-maven-plugin//checkstyle.html#net.oneandone.maven.plugins.billofmaterials.package-info.java">net/oneandone/maven/plugins/billofmaterials/package-info.java</a>
+                  <a href="http://1and1.github.io/bill-of-materials-maven-plugin//checkstyle.html#net.oneandone.maven.plugins.billofmaterials.package-info.java">net/oneandone/maven/plugins/billofmaterials/package-info.java</a>
                 </td>
                 <td>
                   0
@@ -85,7 +85,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://1and1.github.com/bill-of-materials-maven-plugin//checkstyle.html#net.oneandone.maven.plugins.billofmaterials.AbstractBillOfMaterialsMojo.java">net/oneandone/maven/plugins/billofmaterials/AbstractBillOfMaterialsMojo.java</a>
+                  <a href="http://1and1.github.io/bill-of-materials-maven-plugin//checkstyle.html#net.oneandone.maven.plugins.billofmaterials.AbstractBillOfMaterialsMojo.java">net/oneandone/maven/plugins/billofmaterials/AbstractBillOfMaterialsMojo.java</a>
                 </td>
                 <td>
                   0
@@ -99,7 +99,7 @@
               </tr>
                           <tr>
                 <td>
-                  <a href="http://1and1.github.com/bill-of-materials-maven-plugin//checkstyle.html#net.oneandone.maven.plugins.billofmaterials.ToFileFunction.java">net/oneandone/maven/plugins/billofmaterials/ToFileFunction.java</a>
+                  <a href="http://1and1.github.io/bill-of-materials-maven-plugin//checkstyle.html#net.oneandone.maven.plugins.billofmaterials.ToFileFunction.java">net/oneandone/maven/plugins/billofmaterials/ToFileFunction.java</a>
                 </td>
                 <td>
                   0
