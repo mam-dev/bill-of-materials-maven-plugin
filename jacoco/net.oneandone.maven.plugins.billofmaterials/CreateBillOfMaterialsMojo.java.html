@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>CreateBillOfMaterialsMojo.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="right"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">bill-of-materials Maven Plugin</a> &gt; <a href="index.html" class="el_package">net.oneandone.maven.plugins.billofmaterials</a> &gt; <span class="el_source">CreateBillOfMaterialsMojo.java</span></div><h1>CreateBillOfMaterialsMojo.java</h1><pre class="source lang-java linenums">/**
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../.resources/report.css" type="text/css"/><link rel="shortcut icon" href="../.resources/report.gif" type="image/gif"/><title>CreateBillOfMaterialsMojo.java</title><link rel="stylesheet" href="../.resources/prettify.css" type="text/css"/><script type="text/javascript" src="../.resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="right"><a href="../.sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">1-and-1 :: Bill of Materials Plugin for Maven</a> &gt; <a href="index.html" class="el_package">net.oneandone.maven.plugins.billofmaterials</a> &gt; <span class="el_source">CreateBillOfMaterialsMojo.java</span></div><h1>CreateBillOfMaterialsMojo.java</h1><pre class="source lang-java linenums">/**
  * Copyright 1&amp;1 Internet AG, https://github.com/1and1/
  *
  * Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
@@ -165,9 +165,9 @@ public class CreateBillOfMaterialsMojo extends AbstractBillOfMaterialsMojo {
      */
     void write(final String content) throws IOException {
 <span class="fc" id="L167">        final File bomFile = calculateBillOfMaterialsFile();</span>
-<span class="fc" id="L168">        final File parentFile = bomFile.getParentFile();</span>
-<span class="pc bpc" id="L169" title="1 of 4 branches missed.">        if (!parentFile.exists() &amp;&amp; !parentFile.mkdirs()) {</span>
-<span class="nc" id="L170">            throw new IOException(&quot;Could not create parent directory for &quot; + bomFile);</span>
+<span class="fc" id="L168">        final File parentDirectory = bomFile.getParentFile();</span>
+<span class="fc bfc" id="L169" title="All 2 branches covered.">        if (!createParentDirectory(parentDirectory)) {</span>
+<span class="fc" id="L170">            throw new IOException(&quot;Could not create parent directory for &quot; + bomFile);</span>
         }
 <span class="fc" id="L172">        Files.append(content, bomFile, Charsets.UTF_8);</span>
 <span class="fc" id="L173">    }</span>
@@ -185,5 +185,15 @@ public class CreateBillOfMaterialsMojo extends AbstractBillOfMaterialsMojo {
                 &quot;# %s:%s:%s user=%s\n&quot;,
                 project.getGroupId(), project.getArtifactId(), project.getVersion(), userName);
     }
+
+    /**
+     * Creates directory for storage.
+     *
+     * @param parentDirectory 
+     * @return true when parentDirectory could not be created.
+     */
+    boolean createParentDirectory(final File parentDirectory) {
+<span class="pc bpc" id="L196" title="1 of 4 branches missed.">        return parentDirectory.exists() || parentDirectory.mkdirs();</span>
+    }
 }
-</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.2.201302030002</span></div></body></html>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.eclemma.org/jacoco">JaCoCo</a> 0.6.3.201306030806</span></div></body></html>

@@ -2,9 +2,9 @@
 
 <rss version="0.91">
   <channel>
-    <title>bill-of-materials Maven Plugin - Checkstyle report</title>
+    <title>1-and-1 :: Bill of Materials Plugin for Maven - Checkstyle report</title>
     <link>http://1and1.github.com/bill-of-materials-maven-plugin/</link>
-    <description>bill-of-materials Maven Plugin - Checkstyle report</description>
+    <description>1-and-1 :: Bill of Materials Plugin for Maven - Checkstyle report</description>
     <language>en-us</language>
     <copyright>&#169;2012 - 2013 1&1</copyright>
     <item>
