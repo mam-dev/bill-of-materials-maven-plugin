@@ -13,7 +13,7 @@
 
     <name>1-and-1 :: Bill of Materials Plugin for Maven</name>
     <description>Plugin to create and read a bill of materials, i.e. the SHA1 sum of all artifacts and their names.</description>
-    <url>http://1and1.github.com/bill-of-materials-maven-plugin/</url>
+    <url>http://1and1.github.io/bill-of-materials-maven-plugin/</url>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
