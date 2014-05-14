@@ -25,7 +25,7 @@ import org.slf4j.LoggerFactory;
 /**
  * Abstract class implementing the calculation of the bill of materials file.
  *
- * @author Mirko Friedenhagen <mirko.friedenhagen@1und1.de>
+ * @author Mirko Friedenhagen &lt;mirko.friedenhagen@1und1.de&gt;
  */
 public abstract class AbstractBillOfMaterialsMojo extends AbstractMojo {
     /**

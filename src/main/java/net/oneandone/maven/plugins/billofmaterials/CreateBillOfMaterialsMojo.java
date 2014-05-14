@@ -55,7 +55,7 @@ import org.slf4j.impl.StaticLoggerBinder;
  * 5661e9270a02c5359be47615bb6ed9911105d878  child2-1.0-SNAPSHOT.pom
  * </pre>
  *
- * @author Mirko Friedenhagen <mirko.friedenhagen@1und1.de>
+ * @author Mirko Friedenhagen &lt;mirko.friedenhagen@1und1.de&gt;
  */
 @Mojo(name = "create", aggregator = false, defaultPhase = LifecyclePhase.INSTALL)
 public class CreateBillOfMaterialsMojo extends AbstractBillOfMaterialsMojo {
