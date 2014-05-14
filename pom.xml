@@ -21,6 +21,7 @@
         <findbugs-maven-plugin.excludeFilterFile>src/conf/findbugs-exclude.xml</findbugs-maven-plugin.excludeFilterFile>
         <scmpublish.content>target/staging/bill-of-materials-maven-plugin</scmpublish.content>
         <jacoco.check.branchRatio>0.87</jacoco.check.branchRatio>
+        <maven-plugin-plugin.version>3.3</maven-plugin-plugin.version>
     </properties>
     <scm>
         <connection>scm:git:git://github.com/1and1/bill-of-materials-maven-plugin.git</connection>
@@ -84,6 +85,7 @@
         <dependency>
             <groupId>org.apache.maven.plugin-tools</groupId>
             <artifactId>maven-plugin-annotations</artifactId>
+            <version>3.3</version>
             <exclusions>
                 <exclusion>
                     <groupId>org.apache.maven</groupId>
