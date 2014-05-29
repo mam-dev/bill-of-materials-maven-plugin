@@ -31,7 +31,7 @@
     </scm>
     <ciManagement>
         <system>Jenkins</system>
-        <url>http://huschteguzzel.de/hudson/job/oneandone-bill-of-materials-maven-plugin/</url>
+        <url>https://huschteguzzel.de/hudson/job/oneandone-bill-of-materials-maven-plugin/</url>
     </ciManagement>
     <issueManagement>
         <system>GitHub</system>
