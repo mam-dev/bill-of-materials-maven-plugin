@@ -19,13 +19,10 @@ import java.io.File;
 import java.io.IOException;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
-import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.project.MavenProject;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
-import org.slf4j.impl.StaticLoggerBinder;
 
 /**
  *
@@ -35,7 +32,6 @@ public class AbstractBillOfMaterialsMojoTest {
     
     @Before
     public void setLogging() {
-        StaticLoggerBinder.getSingleton().setMavenLog(Mockito.mock(Log.class));
     }
     /**
      * Test of calculateBillOfMaterialsFile method, of class AbstractBillOfMaterialsMojo.

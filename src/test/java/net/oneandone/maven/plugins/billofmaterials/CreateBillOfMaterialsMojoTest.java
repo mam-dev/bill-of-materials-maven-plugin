@@ -23,14 +23,11 @@ import java.util.Arrays;
 import java.util.List;
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.project.MavenProject;
 import static org.junit.Assert.*;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import static org.mockito.Mockito.*;
-import org.slf4j.impl.StaticLoggerBinder;
 
 /**
  *
@@ -42,7 +39,6 @@ public class CreateBillOfMaterialsMojoTest {
 
     @Before
     public void setLogging() {
-        StaticLoggerBinder.getSingleton().setMavenLog(mock(Log.class));
     }
 
     /**

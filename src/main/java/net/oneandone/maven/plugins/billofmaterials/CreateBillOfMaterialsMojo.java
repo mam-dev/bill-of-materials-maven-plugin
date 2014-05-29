@@ -34,9 +34,6 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.project.MavenProject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.slf4j.impl.StaticLoggerBinder;
 
 /**
  * Creates a bill of materials for all installed artifacts.
@@ -61,11 +58,6 @@ import org.slf4j.impl.StaticLoggerBinder;
 public class CreateBillOfMaterialsMojo extends AbstractBillOfMaterialsMojo {
 
     /**
-     * Logger.
-     */
-    private static final Logger LOG = LoggerFactory.getLogger(CreateBillOfMaterialsMojo.class);
-    
-    /**
      * SHA1 hash function.
      */
     private final HashFunction sha1 = Hashing.sha1();
@@ -88,7 +80,7 @@ public class CreateBillOfMaterialsMojo extends AbstractBillOfMaterialsMojo {
         toFileFunction = new ToFileFunction();
         toBomStringFunction = new ToBomStringFunction(sha1);
     }
-    
+
     /**
      * Just for tests.
      * @param billOfMaterialsPath path to bom.
@@ -99,13 +91,11 @@ public class CreateBillOfMaterialsMojo extends AbstractBillOfMaterialsMojo {
         toFileFunction = new ToFileFunction();
         toBomStringFunction = new ToBomStringFunction(sha1);
     }
-    
+
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
-        StaticLoggerBinder.getSingleton().setMavenLog(this.getLog());
         try {
             final List<Artifact> artifacts = getListOfArtifacts();
-            LOG.debug("artifacts={}", artifacts);
             final ArrayList<File> files = new ArrayList<File>(Collections2.transform(artifacts, toFileFunction));
             final ArrayList<String> hashBaseNames = new ArrayList<String>(Collections2.transform(files, toBomStringFunction));
             addHashEntryForPom(hashBaseNames);
@@ -153,7 +143,7 @@ public class CreateBillOfMaterialsMojo extends AbstractBillOfMaterialsMojo {
     void writeResults(final List<String> hashBaseNames) throws IOException {
         final String hashBaseNamesAsString = Joiner.on("\n").join(hashBaseNames) + "\n";
         final String userName = System.getProperty("user.name");
-        write(projectCommentToString(userName));        
+        write(projectCommentToString(userName));
         write(hashBaseNamesAsString);
     }
 
@@ -171,10 +161,10 @@ public class CreateBillOfMaterialsMojo extends AbstractBillOfMaterialsMojo {
         }
         Files.append(content, bomFile, Charsets.UTF_8);
     }
-    
+
     /**
      * Returns a string representation for the comment.
-     * 
+     *
      * @param userName current user
      * @return string representation for the comment.
      */
@@ -189,7 +179,7 @@ public class CreateBillOfMaterialsMojo extends AbstractBillOfMaterialsMojo {
     /**
      * Creates directory for storage.
      *
-     * @param parentDirectory 
+     * @param parentDirectory
      * @return true when parentDirectory could not be created.
      */
     boolean createParentDirectory(final File parentDirectory) {

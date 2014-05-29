@@ -25,16 +25,13 @@ import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.project.MavenProject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.slf4j.impl.StaticLoggerBinder;
 
 /**
- * Reads a bill of materials for all installed artifacts and puts it's content in a property 
+ * Reads a bill of materials for all installed artifacts and puts it's content in a property
  * called <tt>qaBillOfMaterials</tt> of the project which may be reused by templating plugins.
- * 
+ *
  * Spits out a warning when the file does not exist. For usage see the integration tests.
- * 
+ *
  * <p>This in the standard format for the <tt>sha1sum</tt> command including meta information:</p>
  * <pre>
  * # company:company-parent-pom:1.0-SNAPSHOT user=mirko
@@ -53,18 +50,14 @@ import org.slf4j.impl.StaticLoggerBinder;
  */
 @Mojo(name = "read", defaultPhase = LifecyclePhase.INSTALL)
 public class ReadBillOfMaterialsMojo extends AbstractBillOfMaterialsMojo {
-    /**
-     * Logger.
-     */
-    private static final Logger LOG = LoggerFactory.getLogger(ReadBillOfMaterialsMojo.class);
-    
+
     /**
      * Default constructor for maven.
      */
     ReadBillOfMaterialsMojo() {
         super();
     }
-    
+
     /**
      * Just for tests.
      * @param billOfMaterialsPath path to bom.
@@ -73,18 +66,16 @@ public class ReadBillOfMaterialsMojo extends AbstractBillOfMaterialsMojo {
     ReadBillOfMaterialsMojo(File billOfMaterialsPath, MavenProject project) {
         super(billOfMaterialsPath, project);
     }
-    
+
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
-        StaticLoggerBinder.getSingleton().setMavenLog(this.getLog());
         final File bomFile = calculateBillOfMaterialsFile();
-        LOG.info("Reading bill of materials from {}", bomFile);
+        getLog().info("Reading bill of materials from " + bomFile);
         try {
             final String qaBillOfMaterials = Files.toString(bomFile, Charsets.UTF_8);
-            LOG.debug("qaBillOfMaterials {}", qaBillOfMaterials);
             getProject().getProperties().put("qaBillOfMaterials", qaBillOfMaterials);
         } catch (IOException e) {
-            LOG.warn(String.format(
+            getLog().warn(String.format(
                         Locale.ENGLISH, "Could not read content '%s', did you run bill-of-materials:create?", e));
         }
     }

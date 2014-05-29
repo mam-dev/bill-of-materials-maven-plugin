@@ -19,8 +19,6 @@ import java.io.File;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Abstract class implementing the calculation of the bill of materials file.
@@ -28,10 +26,6 @@ import org.slf4j.LoggerFactory;
  * @author Mirko Friedenhagen &lt;mirko.friedenhagen@1und1.de&gt;
  */
 public abstract class AbstractBillOfMaterialsMojo extends AbstractMojo {
-    /**
-     * Logger.
-     */
-    private static final Logger LOG = LoggerFactory.getLogger(AbstractBillOfMaterialsMojo.class);
 
     /**
      * Absolute path to the output-file.
@@ -71,7 +65,6 @@ public abstract class AbstractBillOfMaterialsMojo extends AbstractMojo {
      * @return {@link File} pointing to the bill of materials.
      */
     File calculateBillOfMaterialsFile() {
-        LOG.debug("bill-of-materials file={}", bomPath);
         return bomPath;
     }
 

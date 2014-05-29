@@ -22,6 +22,8 @@
         <scmpublish.content>target/staging/bill-of-materials-maven-plugin</scmpublish.content>
         <jacoco.check.branchRatio>0.87</jacoco.check.branchRatio>
         <maven-plugin-plugin.version>3.3</maven-plugin-plugin.version>
+        <netbeans.compile.on.save>all</netbeans.compile.on.save>
+        <netbeans.hint.jdkPlatform>JDK_1.7</netbeans.hint.jdkPlatform>
     </properties>
     <scm>
         <connection>scm:git:git://github.com/1and1/bill-of-materials-maven-plugin.git</connection>
@@ -104,25 +106,6 @@
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.jcabi</groupId>
-            <artifactId>jcabi-maven-slf4j</artifactId>
-            <version>0.2.0</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>plexus-classworlds</artifactId>
-                    <groupId>org.codehaus.plexus</groupId>
-                </exclusion>
-                <exclusion>
-                    <artifactId>sisu-inject-plexus</artifactId>
-                    <groupId>org.sonatype.sisu</groupId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
