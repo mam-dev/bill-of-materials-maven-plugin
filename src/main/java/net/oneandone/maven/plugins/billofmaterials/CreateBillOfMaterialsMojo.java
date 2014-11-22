@@ -18,7 +18,7 @@ package net.oneandone.maven.plugins.billofmaterials;
 import com.google.common.base.Charsets;
 import com.google.common.base.Function;
 import com.google.common.base.Joiner;
-import com.google.common.collect.Collections2;
+import com.google.common.collect.Lists;
 import com.google.common.hash.HashCode;
 import com.google.common.hash.HashFunction;
 import com.google.common.hash.Hashing;
@@ -96,8 +96,9 @@ public class CreateBillOfMaterialsMojo extends AbstractBillOfMaterialsMojo {
     public void execute() throws MojoExecutionException, MojoFailureException {
         try {
             final List<Artifact> artifacts = getListOfArtifacts();
-            final ArrayList<File> files = new ArrayList<File>(Collections2.transform(artifacts, toFileFunction));
-            final ArrayList<String> hashBaseNames = new ArrayList<String>(Collections2.transform(files, toBomStringFunction));
+            final List<File> files = Lists.transform(artifacts, toFileFunction);
+            // We need a copy here as transform will return a fixed size list.
+            final List<String> hashBaseNames = new ArrayList<>(Lists.transform(files, toBomStringFunction));
             addHashEntryForPom(hashBaseNames);
             writeResults(hashBaseNames);
         } catch (IOException ex) {
@@ -111,7 +112,9 @@ public class CreateBillOfMaterialsMojo extends AbstractBillOfMaterialsMojo {
      */
     List<Artifact> getListOfArtifacts() {
         final MavenProject project = getProject();
-        final List<Artifact> artifacts = new ArrayList<Artifact>(project.getAttachedArtifacts());
+        // We need a copy here as otherwise install and deploy will choke later on because
+        // we attach the POM as well.
+        final List<Artifact> artifacts = new ArrayList<>(project.getAttachedArtifacts());
         final String packaging = project.getPackaging();
         // POMs return null as their artifact, which will crash the transformation lateron.
         if (!"pom".equals(packaging)) {
@@ -127,7 +130,6 @@ public class CreateBillOfMaterialsMojo extends AbstractBillOfMaterialsMojo {
      */
     void addHashEntryForPom(final List<String> hashBaseNames) throws IOException {
         final MavenProject project = getProject();
-        //Files.copy(project.getFile(), new File(getTargetDirectory(), "pom.xml"));
         final HashCode sha1OfPom = Files.hash(project.getFile(), sha1);
         final String pomLine = String.format(Locale.ENGLISH, "%s  %s-%s.pom",
                     sha1OfPom, project.getArtifactId(), project.getVersion());
