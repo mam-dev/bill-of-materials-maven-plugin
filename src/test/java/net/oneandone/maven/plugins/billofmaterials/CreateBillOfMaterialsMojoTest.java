@@ -72,19 +72,19 @@ public class CreateBillOfMaterialsMojoTest {
         instance.execute();
     }
     /**
-     * Test of getListOfArtifacts method, of class CreateBillOfMaterialsMojo.
+     * Test of getListOfArtifactsAsFiles method, of class CreateBillOfMaterialsMojo.
      */
     @Test
     public void testGetListOfArtifacts() {
         final MavenProject projectMock = createMinimalProject();
         final CreateBillOfMaterialsMojo instance = new CreateBillOfMaterialsMojo(null, projectMock);
         when(projectMock.getPackaging()).thenReturn("pom");
-        final List pomResult = instance.getListOfArtifacts();
+        final List pomResult = instance.getListOfArtifactsAsFiles();
         // no attached artifacts => POM projects have no artifact => empty list.
         assertEquals(0, pomResult.size());
         when(projectMock.getPackaging()).thenReturn("jar");
         when(projectMock.getArtifact()).thenReturn(mock(Artifact.class));
-        final List jarResult = instance.getListOfArtifacts();
+        final List jarResult = instance.getListOfArtifactsAsFiles();
         // no attached artifacts => JAR project's artifact is the JAR => list with one element!
         assertEquals(1, jarResult.size());
     }

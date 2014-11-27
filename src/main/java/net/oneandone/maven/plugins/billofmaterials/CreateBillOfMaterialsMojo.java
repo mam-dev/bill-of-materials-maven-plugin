@@ -15,9 +15,8 @@
  */
 package net.oneandone.maven.plugins.billofmaterials;
 
-import com.google.common.base.Charsets;
-import com.google.common.base.Function;
-import com.google.common.base.Joiner;
+import com.google.common.base.*;
+import com.google.common.collect.Collections2;
 import com.google.common.collect.Lists;
 import com.google.common.hash.HashCode;
 import com.google.common.hash.HashFunction;
@@ -28,6 +27,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
@@ -95,8 +95,7 @@ public class CreateBillOfMaterialsMojo extends AbstractBillOfMaterialsMojo {
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {
         try {
-            final List<Artifact> artifacts = getListOfArtifacts();
-            final List<File> files = Lists.transform(artifacts, toFileFunction);
+            final List<File> files = getListOfArtifactsAsFiles();
             // We need a copy here as transform will return a fixed size list.
             final List<String> hashBaseNames = new ArrayList<>(Lists.transform(files, toBomStringFunction));
             addHashEntryForPom(hashBaseNames);
@@ -110,17 +109,21 @@ public class CreateBillOfMaterialsMojo extends AbstractBillOfMaterialsMojo {
      * Creates a list of all artifacts for the build.
      * @return a list of all artifacts for the build including the attached ones.
      */
-    List<Artifact> getListOfArtifacts() {
+    final List<File> getListOfArtifactsAsFiles() {
         final MavenProject project = getProject();
+        final List<Artifact> attachedArtifacts = project.getAttachedArtifacts();
         // We need a copy here as otherwise install and deploy will choke later on because
         // we attach the POM as well.
-        final List<Artifact> artifacts = new ArrayList<>(project.getAttachedArtifacts());
+        final List<File> files = new ArrayList<>(
+                Collections2.filter(
+                    Lists.transform(attachedArtifacts, toFileFunction),
+                        Files.isFile()));
         final String packaging = project.getPackaging();
         // POMs return null as their artifact, which will crash the transformation lateron.
         if (!"pom".equals(packaging)) {
-            artifacts.add(project.getArtifact());
+            files.add(project.getArtifact().getFile());
         }
-        return artifacts;
+        return files;
     }
 
     /**
