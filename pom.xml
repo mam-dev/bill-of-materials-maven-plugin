@@ -8,7 +8,7 @@
     </parent>
     <groupId>net.oneandone.maven.plugins</groupId>
     <artifactId>bill-of-materials-maven-plugin</artifactId>
-    <version>3.1</version>
+    <version>3.2-SNAPSHOT</version>
     <packaging>maven-plugin</packaging>
 
     <name>1-and-1 :: Bill of Materials Plugin for Maven</name>
@@ -29,7 +29,7 @@
         <connection>scm:git:git://github.com/1and1/bill-of-materials-maven-plugin.git</connection>
         <developerConnection>scm:git:ssh://git@github.com/1and1/bill-of-materials-maven-plugin.git</developerConnection>
         <url>https://github.com/1and1/bill-of-materials-maven-plugin/</url>
-        <tag>bill-of-materials-maven-plugin-3.1</tag>
+        <tag>HEAD</tag>
     </scm>
     <ciManagement>
         <system>Jenkins</system>
