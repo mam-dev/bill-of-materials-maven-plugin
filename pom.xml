@@ -53,6 +53,61 @@
             </roles>
         </developer>
     </developers>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>commons-lang</groupId>
+                <artifactId>commons-lang</artifactId>
+                <version>2.6</version>
+            </dependency>
+            <dependency>
+                <groupId>jaxen</groupId>
+                <artifactId>jaxen</artifactId>
+                <version>1.1-beta-8</version>
+                <exclusions>
+                    <!-- jaxen depends on an older version of itself! -->
+                    <exclusion>
+                        <groupId>jaxen</groupId>
+                        <artifactId>jaxen</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>jdom</groupId>
+                        <artifactId>jdom</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
+            <dependency>
+                <groupId>org.codehaus.plexus</groupId>
+                <artifactId>plexus-interpolation</artifactId>
+                <version>1.21</version>
+            </dependency>
+            <dependency>
+                <groupId>org.eclipse.aether</groupId>
+                <artifactId>aether-util</artifactId>
+                <version>1.0.2.v20150114</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.maven</groupId>
+                <artifactId>maven-model</artifactId>
+                <version>3.3.1</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.maven</groupId>
+                <artifactId>maven-repository-metadata</artifactId>
+                <version>3.3.1</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.maven</groupId>
+                <artifactId>maven-settings</artifactId>
+                <version>3.3.1</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.maven.scm</groupId>
+                <artifactId>maven-scm-api</artifactId>
+                <version>1.9.2</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
     <dependencies>
         <dependency>
             <groupId>org.apache.maven</groupId>
@@ -106,6 +161,21 @@
                 <exclusion>
                     <groupId>org.codehaus.groovy</groupId>
                     <artifactId>groovy-all</artifactId>
+                </exclusion>
+                <!-- now in maven-core -->
+                <exclusion>
+                    <groupId>org.apache.maven</groupId>
+                    <artifactId>maven-artifact-manager</artifactId>
+                </exclusion>
+                <!-- now in maven-core -->
+                <exclusion>
+                    <groupId>org.apache.maven</groupId>
+                    <artifactId>maven-project</artifactId>
+                </exclusion>
+                <!-- now in org.eclipse.sisu:org.eclipse.sisu.plexus -->
+                <exclusion>
+                    <groupId>org.codehaus.plexus</groupId>
+                    <artifactId>plexus-container-default</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
