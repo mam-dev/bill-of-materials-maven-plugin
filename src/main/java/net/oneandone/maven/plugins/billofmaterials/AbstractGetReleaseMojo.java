@@ -25,6 +25,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URI;
+import java.net.URL;
+import java.nio.charset.Charset;
 
 /**
  * Created by mirko on 26.03.15.
@@ -44,24 +46,34 @@ public abstract class AbstractGetReleaseMojo extends AbstractMojo {
     private URI searchBase;
 
     String getLatestVersion(final String repositories) throws MojoExecutionException {
-        final String repositoryString;
-        if (!repositories.isEmpty()) {
-            repositoryString = "&repos=" + repositories;
-        } else {
-            repositoryString = "";
-        }
+        final String repositoryString = getRepositoryString(repositories);
         final URI resolveURI = searchBase.resolve(
                 "?g=" + project.getGroupId() + "&a=" + project.getArtifactId() + repositoryString);
         getLog().info("resolveURI=" + resolveURI);
         final String latestVersion;
         try {
-            try (InputStream in = resolveURI.toURL().openStream()) {
-                latestVersion = CharStreams.toString(new InputStreamReader(in));
+            final URL url = resolveURI.toURL();
+            try (InputStream in = getInputStream(url)) {
+                latestVersion = CharStreams.toString(new InputStreamReader(in, Charset.forName("UTF-8")));
             }
         } catch (IOException e) {
             throw new MojoExecutionException("Can not get " + resolveURI, e);
         }
         getLog().info("latestVersion=" + latestVersion + " from " + repositories);
         return latestVersion;
+    }
+
+    String getRepositoryString(String repositories) {
+        final String repositoryString;
+        if (!repositories.isEmpty()) {
+            repositoryString = "&repos=" + repositories;
+        } else {
+            repositoryString = "";
+        }
+        return repositoryString;
+    }
+
+    InputStream getInputStream(URL url) throws IOException {
+        return url.openStream();
     }
 }
