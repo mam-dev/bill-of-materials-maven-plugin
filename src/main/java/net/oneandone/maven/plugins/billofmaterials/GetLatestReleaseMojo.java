@@ -19,6 +19,7 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.project.MavenProject;
 import org.apache.maven.shared.release.versions.DefaultVersionInfo;
 import org.apache.maven.shared.release.versions.VersionParseException;
 
@@ -33,7 +34,19 @@ public class GetLatestReleaseMojo extends AbstractGetReleaseMojo {
      * Comma seperated list of repositories to search.
      */
     @Parameter(defaultValue = "repo1", required = true, property = "bill-of-materials.releasesRepositories")
-    private String releases;
+    private String releases = "repo1";
+
+    public GetLatestReleaseMojo() {
+
+    }
+
+    /**
+     * For tests.
+     * @param project for tests.
+     */
+    GetLatestReleaseMojo(MavenProject project) {
+        super(project);
+    }
 
     @Override
     public void execute() throws MojoExecutionException, MojoFailureException {

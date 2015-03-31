@@ -38,12 +38,24 @@ public abstract class AbstractGetReleaseMojo extends AbstractMojo {
     @Parameter(defaultValue = "${project}", readonly = true)
     protected MavenProject project;
 
+    public AbstractGetReleaseMojo() {
+
+    }
+
+    /**
+     * Just for tests.
+     * @param project inject for tests.
+     */
+    AbstractGetReleaseMojo(MavenProject project) {
+        this.project = project;
+    }
+
     /**
      * The Artifactory search URL for the latest version.
      */
     @Parameter(defaultValue = "http://repo.jenkins-ci.org/api/search/latestVersion/", required = true,
             property = "bill-of-materials.searchBase")
-    private URI searchBase;
+    private URI searchBase = URI.create("http://repo.jenkins-ci.org/api/search/latestVersion/");
 
     String getLatestVersion(final String repositories) throws MojoExecutionException {
         final String repositoryString = getRepositoryString(repositories);
@@ -53,13 +65,16 @@ public abstract class AbstractGetReleaseMojo extends AbstractMojo {
         final String latestVersion;
         try {
             final URL url = resolveURI.toURL();
-            try (InputStream in = getInputStream(url)) {
+            InputStream in = getInputStream(url);
+            try {
                 latestVersion = CharStreams.toString(new InputStreamReader(in, Charset.forName("UTF-8")));
+            } finally {
+                in.close();
             }
         } catch (IOException e) {
             throw new MojoExecutionException("Can not get " + resolveURI, e);
         }
-        getLog().info("latestVersion=" + latestVersion + " from " + repositories);
+        getLog().info("latestVersion=" + latestVersion + " from repositories='" + repositories + "'");
         return latestVersion;
     }
 
