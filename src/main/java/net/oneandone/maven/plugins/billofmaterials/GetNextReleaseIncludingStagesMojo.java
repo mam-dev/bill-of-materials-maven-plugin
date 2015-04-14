@@ -28,8 +28,9 @@ import org.apache.maven.shared.release.versions.VersionParseException;
  * Creates the next version by retrieving all releases from the repositories called
  * <tt>bill-of-materials.releasesAndStagingRepositories</tt>.
  */
-@Mojo(name = "get-latest-release-including-stages", aggregator = true, requiresProject = true)
-public class GetLatestReleaseIncludingStagesMojo extends AbstractGetReleaseMojo {
+@Mojo(name = "get-next-release-including-stages", aggregator = true, requiresProject = true)
+public class GetNextReleaseIncludingStagesMojo
+    extends AbstractGetReleaseMojo {
 
     /**
      * Comma seperated list of repositories to search.
@@ -37,7 +38,7 @@ public class GetLatestReleaseIncludingStagesMojo extends AbstractGetReleaseMojo 
     @Parameter(defaultValue = "repo1", required = true, property = "bill-of-materials.releasesAndStagingRepositories")
     private String releasesAndStaging = "repo1";
 
-    public GetLatestReleaseIncludingStagesMojo() {
+    public GetNextReleaseIncludingStagesMojo() {
 
     }
 
@@ -45,7 +46,7 @@ public class GetLatestReleaseIncludingStagesMojo extends AbstractGetReleaseMojo 
      * For tests.
      * @param project for tests.
      */
-    GetLatestReleaseIncludingStagesMojo(MavenProject project) {
+    GetNextReleaseIncludingStagesMojo( MavenProject project ) {
         super(project);
     }
 

@@ -16,7 +16,6 @@
 package net.oneandone.maven.plugins.billofmaterials;
 
 import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.project.MavenProject;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
@@ -29,27 +28,30 @@ import static org.junit.Assert.*;
 /**
  * Created by mirko on 31.03.15.
  */
-public class GetLatestReleaseIncludingStagesMojoTest extends AbstractGetReleaseMojoAbstractTest {
+public class GetNextReleaseIncludingStagesMojoTest
+    extends AbstractGetReleaseMojoAbstractTest {
 
     @Test
     public void testExecute() throws Exception {
-        new GetLatestReleaseIncludingStagesMojo();
-        final GetLatestReleaseIncludingStagesMojo mojo = new MyGetLatestReleaseIncludingStagesMojo("1.2");
+        new GetNextReleaseIncludingStagesMojo();
+        final GetNextReleaseIncludingStagesMojo mojo = new MyGetNextReleaseIncludingStagesMojo("1.2");
         mojo.execute();
         assertEquals("1.3", project.getProperties().getProperty("releaseVersion"));
     }
 
     @Test(expected = MojoExecutionException.class)
     public void testExecuteParseError() throws Exception {
-        final GetLatestReleaseIncludingStagesMojo mojo = new MyGetLatestReleaseIncludingStagesMojo("abc");
+        final GetNextReleaseIncludingStagesMojo mojo = new MyGetNextReleaseIncludingStagesMojo("abc");
         mojo.execute();
     }
 
-    private class MyGetLatestReleaseIncludingStagesMojo extends GetLatestReleaseIncludingStagesMojo {
+    private class MyGetNextReleaseIncludingStagesMojo
+        extends GetNextReleaseIncludingStagesMojo
+    {
         private String s;
 
-        public MyGetLatestReleaseIncludingStagesMojo(String s) {
-            super(GetLatestReleaseIncludingStagesMojoTest.this.project);
+        public MyGetNextReleaseIncludingStagesMojo( String s ) {
+            super(GetNextReleaseIncludingStagesMojoTest.this.project);
             this.s = s;
         }
 
