@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 1&1 Internet AG, https://github.com/1and1/
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -72,7 +72,7 @@ public class ReadBillOfMaterialsMojo extends AbstractBillOfMaterialsMojo {
         final File bomFile = calculateBillOfMaterialsFile();
         getLog().info("Reading bill of materials from " + bomFile);
         try {
-            final String qaBillOfMaterials = Files.toString(bomFile, Charsets.UTF_8);
+            final String qaBillOfMaterials = Files.asCharSource(bomFile, Charsets.UTF_8).read();
             getProject().getProperties().put("qaBillOfMaterials", qaBillOfMaterials);
         } catch (IOException e) {
             getLog().warn(String.format(

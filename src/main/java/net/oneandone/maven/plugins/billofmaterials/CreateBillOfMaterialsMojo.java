@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 1&1 Internet AG, https://github.com/1and1/
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -21,6 +21,7 @@ import com.google.common.collect.Lists;
 import com.google.common.hash.HashCode;
 import com.google.common.hash.HashFunction;
 import com.google.common.hash.Hashing;
+import com.google.common.io.FileWriteMode;
 import com.google.common.io.Files;
 import java.io.File;
 import java.io.IOException;
@@ -60,6 +61,7 @@ public class CreateBillOfMaterialsMojo extends AbstractBillOfMaterialsMojo {
     /**
      * SHA1 hash function.
      */
+    @SuppressWarnings("deprecation")
     private final HashFunction sha1 = Hashing.sha1();
 
     /**
@@ -133,14 +135,14 @@ public class CreateBillOfMaterialsMojo extends AbstractBillOfMaterialsMojo {
      */
     void addHashEntryForPom(final List<String> hashBaseNames) throws IOException {
         final MavenProject project = getProject();
-        final HashCode sha1OfPom = Files.hash(project.getFile(), sha1);
+        final HashCode sha1OfPom = Files.asByteSource(project.getFile()).hash(sha1);
         final String pomLine = String.format(Locale.ENGLISH, "%s  %s-%s.pom",
                     sha1OfPom, project.getArtifactId(), project.getVersion());
         hashBaseNames.add(pomLine);
     }
 
     /**
-     * Writes the resulting hash file to {@link CreateBillOfMaterialsMojo#billOfMaterialsPath}.
+     * Writes the resulting hash file to {@link AbstractBillOfMaterialsMojo#bomPath}.
      *
      * @param hashBaseNames to write
      * @throws IOException when the parent directory could not be created or something went wrong while writing the result.
@@ -164,7 +166,7 @@ public class CreateBillOfMaterialsMojo extends AbstractBillOfMaterialsMojo {
         if (!createParentDirectory(parentDirectory)) {
             throw new IOException("Could not create parent directory for " + bomFile);
         }
-        Files.append(content, bomFile, Charsets.UTF_8);
+        Files.asCharSink(bomFile, Charsets.UTF_8, FileWriteMode.APPEND).write(content);
     }
 
     /**

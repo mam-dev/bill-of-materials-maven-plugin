@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 1&1 Internet AG, https://github.com/1and1/
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -43,7 +43,7 @@ final class ToBomStringFunction implements Function<File, String> {
     public String apply(final File file) {
         final HashCode hash;
         try {
-            hash = Files.hash(file, hashFunction);
+            hash = Files.asByteSource(file).hash(hashFunction);
         } catch (IOException e) {
             throw new IllegalArgumentException("Could not create hash for " + file, e);
         }
