@@ -15,6 +15,7 @@
  */
 package net.oneandone.maven.plugins.billofmaterials;
 
+import com.google.common.hash.HashFunction;
 import com.google.common.hash.Hashing;
 import java.io.File;
 import java.io.IOException;
@@ -36,6 +37,9 @@ import static org.mockito.Mockito.*;
 public class CreateBillOfMaterialsMojoTest {
 
     private static final String EMPTY_FILE_FOR_SHA1 = CreateBillOfMaterialsMojoTest.class.getResource("/sha1-test-dummy.txt").getFile();
+
+    @SuppressWarnings("deprecation") // Standard Hash used in Maven
+    private final HashFunction sha1 = Hashing.sha1();
 
     @Before
     public void setLogging() {
@@ -94,7 +98,7 @@ public class CreateBillOfMaterialsMojoTest {
      */
     @Test
     public void testAddHashEntryForPom() throws Exception {
-        final List<String> hashBaseNames = new ArrayList<String>();
+        final List<String> hashBaseNames = new ArrayList<>();
         final MavenProject projectMock = createMinimalProject();
         CreateBillOfMaterialsMojo sut = new CreateBillOfMaterialsMojo(null, projectMock);
         sut.addHashEntryForPom(hashBaseNames);
@@ -138,14 +142,14 @@ public class CreateBillOfMaterialsMojoTest {
 
     @Test
     public void testToBomString() {
-        final ToBomStringFunction sut = new ToBomStringFunction(Hashing.sha1());
+        final ToBomStringFunction sut = new ToBomStringFunction(sha1);
         final File fileForWhichWeWantToCalculateSha1 = new File(EMPTY_FILE_FOR_SHA1);
         assertEquals("da39a3ee5e6b4b0d3255bfef95601890afd80709  sha1-test-dummy.txt", sut.apply(fileForWhichWeWantToCalculateSha1));
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void testToBomStringFail() {
-        final ToBomStringFunction sut = new ToBomStringFunction(Hashing.sha1());
+        final ToBomStringFunction sut = new ToBomStringFunction(sha1);
         final File nonExistingFileForWhichWeWantToCalculateSha1 = new File("I DO NOT EXIST");
         sut.apply(nonExistingFileForWhichWeWantToCalculateSha1);
     }

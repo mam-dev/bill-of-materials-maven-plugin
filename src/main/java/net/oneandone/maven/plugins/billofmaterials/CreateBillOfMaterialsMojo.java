@@ -55,13 +55,13 @@ import org.apache.maven.project.MavenProject;
  *
  * @author Mirko Friedenhagen &lt;mirko.friedenhagen@1und1.de&gt;
  */
-@Mojo(name = "create", aggregator = false, defaultPhase = LifecyclePhase.INSTALL)
+@Mojo(name = "create", defaultPhase = LifecyclePhase.INSTALL)
 public class CreateBillOfMaterialsMojo extends AbstractBillOfMaterialsMojo {
 
     /**
      * SHA1 hash function.
      */
-    @SuppressWarnings("deprecation")
+    @SuppressWarnings("deprecation") // Standard Hash used in Maven
     private final HashFunction sha1 = Hashing.sha1();
 
     /**
@@ -186,7 +186,7 @@ public class CreateBillOfMaterialsMojo extends AbstractBillOfMaterialsMojo {
     /**
      * Creates directory for storage.
      *
-     * @param parentDirectory
+     * @param parentDirectory directory for storage
      * @return true when parentDirectory could not be created.
      */
     boolean createParentDirectory(final File parentDirectory) {
